@@ -141,3 +141,41 @@ la qualité réelle du modèle ni sa résistance aux injections sur un DCE. Le p
 traite les sources comme des données non fiables ; aucun outil externe ni action
 de candidature n’est donné au modèle. Les citations exactes et les formats structurés
 ne suffisent pas à prouver la pertinence ou l’exhaustivité des conclusions.
+
+
+## Prototype local pour la soutenance du 3 novembre 2026
+
+Cette branche ajoute **Prototype local** dans la navigation : une démo entièrement hors ligne avec trois documents **fictifs**, des références page/document, des passages candidats, et un avertissement sur deux dates limites divergentes. Elle ne change pas les résultats historiques de `eval/`.
+
+### Installation locale (Ubuntu 24.04 / WSL2)
+
+```bash
+git switch feature/local-demo-scoping-alignment
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+python -m unittest discover -s tests -v
+python -m streamlit run app.py
+```
+
+Sur Windows, utiliser la procédure PowerShell décrite en tête de ce README, puis sélectionner **Prototype local** dans la barre latérale. Cliquer sur **Charger le dossier fictif (3 documents)**. La recherche BM25 et la vérification indicative des dates ne nécessitent ni Groq, ni Ollama, ni connexion Internet.
+
+### Hybrid RAG et réponse locale (facultatifs)
+
+Pour montrer le chemin technique de la scoping canvas, installer et lancer Ollama **sur la machine locale** avec les modèles correspondants :
+
+```bash
+ollama pull bge-m3
+ollama pull qwen2.5:7b
+ollama serve
+```
+
+Si Ollama est déjà lancé comme service, ne pas démarrer une seconde instance. Dans **Prototype local**, sélectionner **Hybrid BM25 + embeddings Ollama**, puis **Rechercher les passages**. Cliquer sur **Générer une réponse avec Ollama** uniquement après avoir vérifié que les passages pertinents ont été retrouvés. Des modèles différents peuvent être sélectionnés par `OLLAMA_EMBED_MODEL`, `OLLAMA_MODEL` et `OLLAMA_BASE_URL` (HTTP localhost seulement). Le mode hybride indexe temporairement les fragments par requête ; **Chroma / index persistant et reranking ne sont pas encore implémentés**.
+
+### Évaluation, sécurité et limites
+
+Lire `docs/SYSTEM_CARD.md`, `docs/DEMO_SCRIPT.md`, `docs/EVALUATION_REPORT.md` et `docs/RED_TEAM_LOG.md`. Les tests unitaires sur les dates et le classement hybride sont déterministes et ne démontrent pas la qualité réelle des LLM. L'ancienne évaluation contient seulement 20 références initiales d'un marché historique ; elle doit encore être relue indépendamment. Les citations trouvées ne garantissent pas que leur interprétation est correcte. Les avertissements sur les échéances sont des candidats à vérifier manuellement et **non des décisions juridiques**.
+
+**Sources et jeux de données :** le dossier fictif est écrit spécifiquement pour la démonstration. Pour une analyse réelle, charger les PDFs officiels téléchargeables et vérifier les droits de réutilisation, la version, les éventuels rectificatifs et les pages sans texte. L'outil ne soumet pas de candidature.
+
+**Utilisation d'assistants IA :** cette branche a été rédigée avec l'aide de ChatGPT pour la conception, la programmation et la documentation ; chaque membre de l'équipe doit relire les modifications et pouvoir justifier les résultats.
