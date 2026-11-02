@@ -1,5 +1,6 @@
 """Offline demonstrator: provenance, deadline conflicts, local retrieval and optional Ollama."""
 import json
+import hashlib
 from pathlib import Path
 import streamlit as st
 
@@ -56,14 +57,15 @@ def render():
     query = st.text_input("Question sur le dossier", value="Quelle est la date limite de remise des offres ?", key="local_demo_question")
     method = st.radio("Recherche", ["BM25 hors ligne", "Hybrid BM25 + embeddings Ollama"], horizontal=True)
     chunks = chunk_pages(pages)
+    fingerprint = hashlib.sha256(json.dumps(pages, sort_keys=True, ensure_ascii=False).encode("utf-8")).hexdigest()
     if st.button("Rechercher les passages", disabled=not query.strip()):
         try:
             found = (retrieve_hybrid(chunks, query) if method.startswith("Hybrid") else retrieve(chunks, query))
-            st.session_state["demo_retrieved"] = {"question": query, "method": method, "chunks": found}
+            st.session_state["demo_retrieved"] = {"question": query, "method": method, "fingerprint": fingerprint, "chunks": found}
         except HybridRetrievalError as exc:
             st.error(str(exc))
     saved = st.session_state.get("demo_retrieved", {})
-    if saved.get("question") == query and saved.get("method") == method:
+    if saved.get("question") == query and saved.get("method") == method and saved.get("fingerprint") == fingerprint:
         for chunk in saved["chunks"]:
             with st.expander(f"{chunk['document']} · page {chunk['page']} · {chunk['id']}"):
                 st.text(chunk["text"])
@@ -77,14 +79,14 @@ def render():
                     saved["chunks"])
                 if result.status == "Réponse sourcée":
                     citations = validate_citations(result.citations, saved["chunks"])
-                    st.session_state["demo_answer"] = {"question": query, "answer": result.answer, "citations": citations}
+                    st.session_state["demo_answer"] = {"question": query, "fingerprint": fingerprint, "answer": result.answer, "citations": citations}
                 else:
-                    st.session_state["demo_answer"] = {"question": query,
+                    st.session_state["demo_answer"] = {"question": query, "fingerprint": fingerprint,
                         "answer": "Information insuffisante : vérifier les documents officiels.", "citations": []}
             except (LocalModelError, LLMError) as exc:
                 st.error(str(exc))
         answer = st.session_state.get("demo_answer", {})
-        if answer.get("question") == query:
+        if answer.get("question") == query and answer.get("fingerprint") == fingerprint:
             st.write(answer["answer"])
             for citation in answer["citations"]:
                 st.caption(f"{citation['document']} · page {citation['page']}")
