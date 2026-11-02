@@ -36,7 +36,10 @@ def render():
         st.warning("Au moins une page n'a pas de texte : ce contenu n'a pas été analysé.")
     st.subheader("1. Échéances et contradictions potentielles")
     report = deadline_candidates(pages)
-    st.warning(report["warning"])
+    if report["requires_review"]:
+        st.error("REQUIRES VERIFICATION / À VÉRIFIER — " + report["warning"])
+    else:
+        st.warning("À vérifier — " + report["warning"])
     for item in report["candidates"]:
         with st.container(border=True):
             st.write(f"**{item['date']} {item['time'] or '(heure inconnue)'}**")
