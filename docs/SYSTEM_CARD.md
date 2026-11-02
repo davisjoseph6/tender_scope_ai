@@ -1,15 +1,15 @@
-# TenderScope AI — system card (prototype, 2 November 2026)
+# TenderScope AI — system card (2 November 2026)
 
-**Purpose / user:** French SME bid coordinators, first-pass analysis of public procurement materials.
+**Purpose/user:** French SMEs and bid coordinators assessing *public procurement notices*.
 
-**Scope:** Multiple locally loaded documents, page-bound citations, keyword extraction, an optional Groq structured extractor, optional on-device Ollama question answering and hybrid BM25/embedding retrieval, preliminary date conflict flags, manually confirmed bid/no-bid checklist.
+**Data scope:** Read-only public BOAMP/DILA OpenDataSoft notice records by `idweb` and their BOAMP URL. No scraping or automated login to procurement-platform buyer profiles; no assumption that RC, CCTP, CCAP or annexes are obtainable. Optional user-supplied PDFs only when legally accessible. Fictional demo dossier labelled as fictional.
 
-**Out of scope:** Legal advice, authoritative deadline determination, autonomous submission, guaranteed eligibility, confidential data sent to Groq without consent. Demo data are explicitly fictional.
+**Inputs/outputs:** BOAMP notice ID -> published field values with API field identifiers, DILA attribution and official URL; local public PDFs/text -> provisional cited passage candidates, date contradiction indicators, checklist export, optional RAG Q&A. The case of inconsistent deadlines is displayed as **REQUIRES VERIFICATION**, without selecting an authoritative date.
 
-**Models/data:** Groq `openai/gpt-oss-20b` when configured; local Ollama `qwen2.5:7b` and `bge-m3` when installed. These are configurable, not included. External public tender PDF for existing evaluation is not committed; see `eval/README.md`. Demo fictional documents live in `data/demo/`.
+**Model:** Groq `openai/gpt-oss-20b` optional, with consent; local Ollama `qwen2.5:7b` optional for offline generation, `bge-m3` for optional hybrid retrieval. Neither embedding model nor Groq key is bundled. Offline BM25 and rule extraction need no network.
 
-**Safety:** Source documents are untrusted, exact quotation existence is verified when generating structured results, no automatic bid submission, Groq transmission requires explicit user permission. Citation presence does not validate factual interpretation or version authority.
+**Safety:** Human review is mandatory for date authority, applicability, amendments and bid/no-bid judgment. Models have no procurement submission tools. Documents are untrusted. Existence of a citation does NOT verify its meaning. `GROQ_API_KEY` is excluded from source control.
 
-**Known limitations:** No OCR; deadline pattern matching is incomplete; no official amendment chronology; no guaranteed semantic support, no automatic legal compliance determination. Evaluation spans 20 initial references from a single tender, not yet independently validated.
+**Evaluation:** Historical 20 cases from one 2024 RC: 10/20 strict phrase+source proxy, 0/1 deadline exact match; Wilson intervals are descriptive only. Structured Groq historical export is not a prompt-only baseline. Reproducible prompt-only comparison script provided, but not yet executed.
 
-**Human review:** Required for all operational decisions, official deadlines, applicability and document version control.
+**Limitations:** No authenticated DCE access, no OCR, no guaranteed amendment chronology, no semantic correctness certification, no BOAMP multi-notice held-out gold set, no legal advice. BOAMP information can change; verify official source before action.
