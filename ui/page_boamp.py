@@ -1,7 +1,8 @@
 """A BOAMP-only, read-only demo with no buyer-portal access."""
 import json
 import streamlit as st
-from core.boamp import BOAMPError, get_notice, notice_evidence
+from core.boamp import BOAMPError, get_notice, notice_evidence, notice_as_pages
+from ui.workspace import archive_loaded_dossier
 
 
 def render():
@@ -36,3 +37,10 @@ def render():
     st.download_button("Exporter les champs et leur provenance",
         json.dumps({"notice": row, "fields": notice_evidence(row), "human_review_required": True},
                    ensure_ascii=False, indent=2), "avis_boamp.json", "application/json")
+
+    st.divider()
+    st.caption("Pour expérimenter le RAG sur des avis réellement publics, vous pouvez importer ces champs API dans le dossier courant. Il s'agit d'une page **virtuelle** construite à partir de champs BOAMP, pas du texte complet d'un RC.")
+    if st.button("Ouvrir les champs BOAMP pour la recherche locale"):
+        pages = notice_as_pages(row)
+        archive_loaded_dossier(pages, [(0, pages[0]["document"], pages)], "BOAMP " + row["idweb"])
+        st.success("Avis ajouté comme fiche API avec provenance. Ouvrez « Prototype local » pour rechercher ou « Assistant IA » pour poser des questions.")
