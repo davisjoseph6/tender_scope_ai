@@ -1,0 +1,5 @@
+streamlit>=1.57,<2
+pypdf>=6,<7
+groq>=0.37,<2
+python-dotenv>=1,<2
+pydantic>=2.11,<3

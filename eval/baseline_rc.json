@@ -1,0 +1,705 @@
+{
+  "requirements": [
+    {
+      "category": "Date limite",
+      "summary": "Date limite de remise des offres",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 1,
+          "quote": "DATE LIMITE DE REMISE DES OFFRES : Jeudi 01/08/2024 à 11 h",
+          "source_id": "s1"
+        }
+      ]
+    },
+    {
+      "category": "Date limite",
+      "summary": "Durée de validité des offres",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 2,
+          "quote": "Durée de validité des offres 90 jours",
+          "source_id": "s2"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Maintenance, assistance et entretien du parc informatique du syndicat mixte",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 1,
+          "quote": "Maintenance, assistance et entretien du parc informatique du \nsyndicat mixte",
+          "source_id": "s1"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Réunion de lancement de la mission début septembre (date à confirmer)",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 1,
+          "quote": "Réunion de lancement de la mission : début septembre (Date à confirmer)",
+          "source_id": "s1"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Point de départ du délai : Ordre de service (septembre 2024)",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 1,
+          "quote": "Point de départ du délai : Ordre de service (septembre 2024).",
+          "source_id": "s1"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Durée du marché d'une année, renouvelable deux fois par tacite reconduction, maximum trois ans",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 1,
+          "quote": "Le marché est conclu pour une période d'une année, renouvelable \ndeux fois par tacite reconduction, soit une durée maximum de trois \nans.",
+          "source_id": "s1"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Résiliation possible deux mois avant chaque échéance annuelle par lettre recommandée",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 1,
+          "quote": "Il pourra être résilié par la collectivité deux mois au moins avant \nchaque échéance annuelle, par lettre recommandée avec avis de \nréception.",
+          "source_id": "s1"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Les candidats peuvent se présenter seul ou en groupement, avec préférence pour un groupement solidaire",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 1,
+          "quote": "Les candidats peuvent se présenter seul ou en groupement.  \nEn cas de groupement, la forme souhaitée par le pouvoir adjudicateur est \nun groupement solidaire.",
+          "source_id": "s1"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Sous-traitance refusée",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 1,
+          "quote": "La sous-traitance est refusée.",
+          "source_id": "s1"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Modification de détail possible au plus tard 8 jours avant la date limite de remise des offres",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 2,
+          "quote": "Le pouvoir adjudicateur se réserve le droit d'envoyer au plus tard 8 jours calendaires \navant la date limite de remise des offres des modifications de détail sur le dossier de \nconsultation.",
+          "source_id": "s2"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Réponse aux demandes de renseignements adressée 6 jours au plus tard avant la date limite de remise des offres",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 2,
+          "quote": "Une réponse sera alors adressée, selon les cas, à toutes les entreprises ayant retiré \nle dossier ou l’ayant téléchargé après identification, 6 jours au plus tard avant la date \nlimite de réception des offres.",
+          "source_id": "s2"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "L’offre doit être rédigée uniquement en langue française",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 2,
+          "quote": "L’offre devra être rédigée uniquement en langue française.",
+          "source_id": "s2"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Lettre de candidature ou Imprimé DC1",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Lettre de candidature ou Imprimé DC1;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Déclaration du candidat ou Imprimé DC2",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Déclaration du candidat ou Imprimé DC2 ;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Pouvoir de la personne habilitée à engager le candidat",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Pouvoir de la personne habilitée à engager le candidat ;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Extrait KBis ou extrait Répertoire des Métiers",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Un extrait KBis ou un extrait Répertoire des Métiers.",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Copie du ou des jugements prononcés si le candidat est en redressement judiciaire",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Copie du ou des jugements prononcés si le candidat est en redressement judiciaire",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Déclaration sur l'honneur du candidat justifiant qu'il n'entre dans aucun des cas mentionnés à l'article 45 de l’ordonnance n°2015-899 du 23 juillet 2015",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Déclaration sur l'honneur du candidat justifiant qu'il n'entre dans aucun des cas \nmentionnés à l'article 45 de l’ordonnance n°2015-899 du 23 juillet 2015 ;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Attestation d’absence de conflit d’intérêts",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Attestation d’absence de conflit d’intérêts",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Renseignements sur le respect de l’obligation d’emploi mentionnée aux articles L5212-1 à L5212-11 du code du travail",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Renseignements sur le respect de l’obligation d’emploi mentionnée aux articles \nL5212-1 à L5212-11 du code du travail ;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Déclaration indiquant les moyens humains (effectifs) et matériels dont le candidat dispose pour la réalisation de prestations de même nature",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Déclaration indiquant les moyens humains (effectifs) et matériels dont le candidat \ndispose pour la réalisation de prestations de même nature",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Déclaration concernant le chiffre d'affaires global voire le chiffre d'affaires concernant les prestations intellectuelles objet du marché, réalisées au cours des trois derniers exercices disponibles",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Déclaration concernant le chiffre d'affaires global voire le chiffre d'affaires concernant \nles prestations intellectuelles objet du marché, réalisées au cours des trois derniers \nexercices disponibles ;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Certificats de qualifications professionnelles le cas échéant",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Certificats de qualifications professionnelles le cas échéant",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Coordonnées bancaires",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Coordonnées bancaires",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Acte d’engagement annexé au présent règlement de la consultation, à compléter, dater et signer",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Acte d’engagement annexé au présent règlement de la consultation, à compléter, \ndater et signer ;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "CCTP joint au présent règlement de consultation à dater et signer",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Le CCTP joint au présent règlement de consultation à dater et signer ;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Bordereau des prix éventuellement accompagné d’un DPGF (Décomposition du prix global et forfaitaire) de la prestation faisant apparaître les détails des prestations (devis détaillé et signé)",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Le Bordereau des prix éventuellement accompagné d’un DPGF ( Décomposition du \nprix global et forfaitaire) de la prestation faisant apparaître les détails des prestations \n(devis détaillé et signé) ;",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Mémoire technique et méthodologique relatif à la mission et permettant de juger la valeur technique de l’offre comportant : descriptif de la méthodologie, composition de l’équipe proposée, proposition du contrat d’assistance, d’entretien et de maintenance",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "Le mémoire technique et méthodologique relatif à la mission et permettant de juger \nla valeur technique de l’offre comportant :  \no Le descriptif de la méthodologie ;  \no La composition de l’équipe proposée pour la réalisation de la prestation; elle \npourra s’entourer, le cas échéant, d’autres compétences utiles à la réalisation \nde sa mission   \no La proposition du contrat d’assistance, d’entretien et de maintenance , établi \nsuivant le présent CCTP et conforme au modèle des Marchés Publics",
+          "source_id": "s3"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Pour chaque sous-traitant présenté dans l'offre, le candidat devra joindre la nature et le montant des prestations sous-traitées (formulaire DC4)",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "la nature et le montant des prestations sous-traitées (formulaire DC4) ;",
+          "source_id": "s4"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Pour chaque sous-traitant présenté dans l'offre, le candidat devra joindre le nom, la raison ou la dénomination sociale et l'adresse du sous-traitant (DC4)",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "le nom, la raison ou la dénomination sociale et l'adresse du sous-traitant (DC4) ;",
+          "source_id": "s4"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Pour chaque sous-traitant présenté dans l'offre, le candidat devra joindre les conditions de paiement et modalités de règlement du sous-traitant (DC4)",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "les conditions de paiement et modalités de règlement du sous-traitant (DC4) ;",
+          "source_id": "s4"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Pour chaque sous-traitant présenté dans l'offre, le candidat devra joindre les références du compte à créditer (DC4)",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "les références du compte à créditer (DC4) ;",
+          "source_id": "s4"
+        }
+      ]
+    },
+    {
+      "category": "Date limite",
+      "summary": "Le candidat retenu doit produire dans un délai de 8 jours les certificats et attestations prévus aux articles 48 et 49 du décret 2016-360",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 3,
+          "quote": "le candidat retenu ne saurait être \ndésigné définitivement comme titulaire du marché qu'à la condition de produire dans un délai de 8 jours les \ncertificats et attestations prévus aux articles 48 et 49 dudit décret.",
+          "source_id": "s4"
+        }
+      ]
+    },
+    {
+      "category": "Critères de sélection",
+      "summary": "Le pouvoir adjudicateur peut négocier avec les candidats dont l’offre est classée parmi les 3 premières places après la première analyse des offres.",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 4,
+          "quote": "Après une 1re analyse des offres, le pouvoir adjudicateur pourra négocier avec les \ncandidats dont l’offre aura été classée dans les 3 premières places, sur la base des \ncritères définis à l’article 7 du présent règlement de consultation.",
+          "source_id": "s5"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "La valeur technique est appréciée sur la base de 4 sous‑critères : pertinence de la méthodologie proposée (20%), moyens et livrables (10%) et planning prévisionnel (10%).",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 4,
+          "quote": "La valeur technique sera appréciée au regard du contenu de la note méthodologique proposée pour assurer \nla mission, sur la base des 4 sous critères suivants :  \n- Pertinence de la méthodologie proposée (20%) \n- Moyens et livrables (10%) \n- Planning prévisionnel (10%)",
+          "source_id": "s6"
+        }
+      ]
+    },
+    {
+      "category": "Critères de sélection",
+      "summary": "Méthode de notation du critère Prix basée sur le montant le plus bas",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Pour le critère Prix, la méthode de notation retenue est la suivante :  \nL’offre la plus basse obtient la note maximale de 50/50.",
+          "source_id": "s7"
+        }
+      ]
+    },
+    {
+      "category": "Critères de sélection",
+      "summary": "Évaluation de la capacité à intervenir selon expérience, compétences et moyens",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "La capacité à intervenir sera appréciée au regard des capacités du candidat :  \n Son expérience professionnelle dans les activités professionnelles de l’informatique ou activités \nsimilaires de dépannage, d’entretien ou de maintenance informatique  \n De sa capacité professionnelle (CV, expériences, VAE…)  \n De ses capacités (moyens humains, techniques, véhicules…)",
+          "source_id": "s7"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Prestations de maintenance sur base d’un forfait trimestriel et facturation détaillée pour prestations à la demande ou options",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Les prestations seront rétribuées de la façon suivante :  \n• Forfait trimestriel pour la maintenance sur la base du bordereau des prix \n• Par règlement de factures détaillés pour les prestations à la demande \nou pour les options (devis détaillés en amont explicitant les détails de \nl’intervention sur la base du montant financier proposé dans le bordereau \ndes prix).",
+          "source_id": "s7"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Le prix doit être ferme et forfaitaire, incluant tous frais (déplacement, conception, pédagogique, reproduction)",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Le prix est ferme et forfaitaire. Le prix doit comprendre tous les frais afférents \nà l’action (déplacement, frais de conception, frais pédagogique, frais de \nreproduction…).",
+          "source_id": "s7"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Changement de lieu de réalisation peut entraîner surcoût, notamment déplacements",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Un changement éventuel du lieu de réalisation de la prestation \nne saurait entrainer de surcoût, notamment au titre des déplacements.",
+          "source_id": "s7"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Offre de prix valable pendant toute la durée du marché",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "L’offre de prix est valable pendant toute la durée du marché.",
+          "source_id": "s7"
+        }
+      ]
+    },
+    {
+      "category": "Autre",
+      "summary": "Le contrat peut être modifié par avenant",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Le contrat lié à la présente consultation pourra faire l’objet de modifications par \navenant.",
+          "source_id": "s7"
+        }
+      ]
+    },
+    {
+      "category": "Clauses sensibles",
+      "summary": "Voies et délais de recours : référé précontractuel jusqu’à signature, contestation de validité 2 mois après mesures de publicité, recours pour excès de pouvoir 2 mois après notification, référé contractuel jusqu’au 31ème jour après publication ou 6 mois après conclusion du contrat",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Référé précontractuel jusqu'à la date de signature du marché (Article L551 -1 du code de justice \nadministrative).",
+          "source_id": "s8"
+        },
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Le recours en contestation de validité contractuelle : 2 mois à compter de l’accomplissement des \nmesures de publicité appropriées ;",
+          "source_id": "s8"
+        },
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Le recours pour excès de pouvoir (Article R421-1 du code de justice administrative) : 2 mois à compter \nde la notification ou de la publication de la décision attaquée ;",
+          "source_id": "s8"
+        },
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "Référé contractuel jusqu'au 31ème jour suivant la publication de l'avis d'attribution ou en l'absence \nde la publication d'avis, jusqu'à l'expiration d'un délai de six mois à compter du lendemain du jour de \nla conclusion du contrat (Article L551-13 du code de justice administrative).",
+          "source_id": "s8"
+        }
+      ]
+    },
+    {
+      "category": "Pièces de candidature",
+      "summary": "Documents complémentaires requis : CCTP, bordereau des prix, acte d’engagement ATTRI 1",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 5,
+          "quote": "- CCTP \n- Bordereau des Prix (voir en annexes) \n- Acte d’engagement : ATTRI 1",
+          "source_id": "s8"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Maintenance préventive incluse dans le forfait trimestriel",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 6,
+          "quote": "Maintenance préventive",
+          "source_id": "s9"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Livrables inclus dans le forfait trimestriel",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 6,
+          "quote": "Livrables",
+          "source_id": "s9"
+        }
+      ]
+    },
+    {
+      "category": "Prestations techniques",
+      "summary": "Réunions de coordination incluses dans le forfait trimestriel",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 6,
+          "quote": "Réunions de coordination",
+          "source_id": "s9"
+        }
+      ]
+    },
+    {
+      "category": "Options",
+      "summary": "Conseils pour 3 jours d’intervention niveau «expert» par an selon demande",
+      "mandatory": "Non",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 6,
+          "quote": "Conseils (pour 3 jours \nd’intervention niveau «expert» par \nan selon demande)",
+          "source_id": "s9"
+        }
+      ]
+    },
+    {
+      "category": "Options",
+      "summary": "Jour supplémentaire de conseils",
+      "mandatory": "Non",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 7,
+          "quote": "Jour supplémentaire Conseils",
+          "source_id": "s10"
+        }
+      ]
+    },
+    {
+      "category": "Options",
+      "summary": "Refacturation de prestations avec des opérateurs extérieurs (forfait 5 opérateurs)",
+      "mandatory": "Non",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 7,
+          "quote": "Refacturation de prestations avec des \nopérateurs extérieurs (forfait 5 \nopérateurs)",
+          "source_id": "s10"
+        }
+      ]
+    },
+    {
+      "category": "Options",
+      "summary": "Évaluation réseaux et équipements et prospectives",
+      "mandatory": "Non",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 7,
+          "quote": "Evaluation réseaux et équipements et \nprospectives",
+          "source_id": "s10"
+        }
+      ]
+    },
+    {
+      "category": "Clauses sensibles",
+      "summary": "Attestation d'absence de conflit d'intérêts",
+      "mandatory": "Oui",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 8,
+          "quote": "Attestation d'absence de conflit d'intérêts",
+          "source_id": "s11"
+        }
+      ]
+    }
+  ],
+  "rejected_requirements": 10,
+  "model": "openai/gpt-oss-20b",
+  "chunks_processed": 12,
+  "pages_with_text": 8,
+  "pages_without_text": 0,
+  "mode": "Groq · extraction structurée",
+  "human_review_required": true
+}

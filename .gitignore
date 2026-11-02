@@ -1,0 +1,11 @@
+.venv/
+.env
+.env.example
+__pycache__/
+*.pyc
+data/tenders/
+data/exports/*
+!data/exports/.gitkeep
+data/samples/*.pdf
+
+.streamlit/secrets.toml

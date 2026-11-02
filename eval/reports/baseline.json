@@ -1,0 +1,382 @@
+{
+  "prediction_items": 52,
+  "reference_cases": 20,
+  "cases_with_source_match": 15,
+  "source_coverage": 0.75,
+  "citations_found": 55,
+  "citations_total": 55,
+  "citation_existence_rate": 1.0,
+  "cases_flagged": 17,
+  "human_validated_cases": 0,
+  "limitations": "Couverture de passages par ancrages exacts et alertes ciblées. Ni rappel exhaustif des exigences, ni exactitude sémantique, ni taux de faux éligibles. Référence initiale à valider par l’équipe ; un seul marché.",
+  "cases": [
+    {
+      "id": "rc01",
+      "topic": "Dépôt des offres",
+      "expected": "Dépôt au 1er août 2024 à 11 h ; marché ancien utilisé pour tester le logiciel.",
+      "candidate_indices": [
+        1
+      ],
+      "issues": [],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 1,
+          "quote": "DATE LIMITE DE REMISE DES OFFRES : Jeudi 01/08/2024 à 11 h",
+          "anchor": "DATE LIMITE DE REMISE DES OFFRES : Jeudi 01/08/2024 à 11 h"
+        }
+      ]
+    },
+    {
+      "id": "rc02",
+      "topic": "Validité des offres",
+      "expected": "Validité de 90 jours, à distinguer de l’échéance de dépôt.",
+      "candidate_indices": [
+        2
+      ],
+      "issues": [
+        "Catégorie à revoir"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 2,
+          "quote": "Durée de validité des offres 90 jours",
+          "anchor": "Durée de validité des offres 90 jours"
+        }
+      ]
+    },
+    {
+      "id": "rc03",
+      "topic": "Durée du marché",
+      "expected": "Une année, deux reconductions possibles, trois ans maximum.",
+      "candidate_indices": [
+        6
+      ],
+      "issues": [
+        "Catégorie à revoir"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 1,
+          "quote": "Le marché est conclu pour une période d'une année, renouvelable \ndeux fois par tacite reconduction, soit une durée maximum de trois \nans.",
+          "anchor": "Le marché est conclu pour une période d'une année, renouvelable deux fois par tacite reconduction, soit une durée maximum de trois ans."
+        }
+      ]
+    },
+    {
+      "id": "rc04",
+      "topic": "Résiliation",
+      "expected": "Faculté de résiliation avec préavis d’au moins deux mois : clause contractuelle, pas tâche technique.",
+      "candidate_indices": [
+        7
+      ],
+      "issues": [
+        "Catégorie à revoir"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 1,
+          "quote": "Il pourra être résilié par la collectivité deux mois au moins avant \nchaque échéance annuelle, par lettre recommandée avec avis de \nréception.",
+          "anchor": "Il pourra être résilié par la collectivité deux mois au moins avant chaque échéance annuelle, par lettre recommandée avec avis de réception."
+        }
+      ]
+    },
+    {
+      "id": "rc05",
+      "topic": "Sous-traitance",
+      "expected": "Le RC indique un refus de la sous-traitance ; rapprocher cette phrase des demandes DC4 page 3.",
+      "candidate_indices": [
+        9
+      ],
+      "issues": [
+        "Catégorie à revoir"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 1,
+          "quote": "La sous-traitance est refusée.",
+          "anchor": "La sous-traitance est refusée."
+        }
+      ]
+    },
+    {
+      "id": "rc06",
+      "topic": "Langue de réponse",
+      "expected": "Offre en français ; modalité de réponse, pas prestation technique.",
+      "candidate_indices": [
+        12
+      ],
+      "issues": [
+        "Catégorie à revoir"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 2,
+          "quote": "L’offre devra être rédigée uniquement en langue française.",
+          "anchor": "L’offre devra être rédigée uniquement en langue française."
+        }
+      ]
+    },
+    {
+      "id": "rc07",
+      "topic": "Lettre de candidature",
+      "expected": "Lettre de candidature OU DC1 : préserver l’alternative.",
+      "candidate_indices": [
+        13
+      ],
+      "issues": [],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 3,
+          "quote": "Lettre de candidature ou Imprimé DC1;",
+          "anchor": "Lettre de candidature ou Imprimé DC1;"
+        }
+      ]
+    },
+    {
+      "id": "rc08",
+      "topic": "Jugements conditionnels",
+      "expected": "Pièce demandée si le candidat est en redressement judiciaire. Applicabilité à vérifier pour l’entreprise.",
+      "candidate_indices": [
+        17
+      ],
+      "issues": [
+        "Élément 17 : condition présente ; le champ obligatoire=Oui ne distingue pas son applicabilité"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 3,
+          "quote": "Copie du ou des jugements prononcés si le candidat est en redressement judiciaire",
+          "anchor": "Copie du ou des jugements prononcés si le candidat est en redressement judiciaire"
+        }
+      ]
+    },
+    {
+      "id": "rc09",
+      "topic": "Qualifications conditionnelles",
+      "expected": "Certificats le cas échéant, sans inventer une certification ISO universellement obligatoire.",
+      "candidate_indices": [
+        23
+      ],
+      "issues": [
+        "Élément 23 : condition présente ; le champ obligatoire=Oui ne distingue pas son applicabilité"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 3,
+          "quote": "Certificats de qualifications professionnelles le cas échéant",
+          "anchor": "Certificats de qualifications professionnelles le cas échéant"
+        }
+      ]
+    },
+    {
+      "id": "rc10",
+      "topic": "Déclaration de chiffre d’affaires",
+      "expected": "Déclaration sur les trois derniers exercices disponibles ; ce passage ne donne aucun seuil minimal.",
+      "candidate_indices": [
+        22
+      ],
+      "issues": [],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 3,
+          "quote": "Déclaration concernant le chiffre d'affaires global voire le chiffre d'affaires concernant \nles prestations intellectuelles objet du marché, réalisées au cours des trois derniers \nexercices disponibles",
+          "anchor": "Déclaration concernant le chiffre d'affaires global voire le chiffre d'affaires concernant les prestations intellectuelles objet du marché, réalisées au cours des trois derniers exercices disponibles"
+        }
+      ]
+    },
+    {
+      "id": "rc11",
+      "topic": "Références",
+      "expected": "Références similaires sur trois ans, avec montant, date et destinataire. Aucun nombre minimum ne doit être inventé.",
+      "candidate_indices": [],
+      "issues": [
+        "Passage attendu non retrouvé dans les citations de l’export"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 3,
+          "quote": "Liste des principales références pour des prestations similaires exécutées ou en \ncours d'exécution au cours des trois dernières années",
+          "anchor": "Liste des principales références pour des prestations similaires exécutées ou en cours d'exécution au cours des trois dernières années"
+        }
+      ]
+    },
+    {
+      "id": "rc12",
+      "topic": "Mémoire technique",
+      "expected": "Mémoire à remettre dans l’offre, avec méthodologie, équipe et proposition de contrat.",
+      "candidate_indices": [
+        28
+      ],
+      "issues": [
+        "Catégorie à revoir"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 3,
+          "quote": "Le mémoire technique et méthodologique relatif à la mission et permettant de juger \nla valeur technique de l’offre",
+          "anchor": "Le mémoire technique et méthodologique relatif à la mission et permettant de juger la valeur technique de l’offre"
+        }
+      ]
+    },
+    {
+      "id": "rc13",
+      "topic": "Pondération du prix",
+      "expected": "Prix : 45 % dans le tableau principal de jugement.",
+      "candidate_indices": [],
+      "issues": [
+        "Passage attendu non retrouvé dans les citations de l’export"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 4,
+          "quote": "Le prix de la prestation annuelle  45%",
+          "anchor": "Le prix de la prestation annuelle 45%"
+        }
+      ]
+    },
+    {
+      "id": "rc14",
+      "topic": "Pondération technique",
+      "expected": "Valeur technique : 40 % dans le tableau principal.",
+      "candidate_indices": [],
+      "issues": [
+        "Passage attendu non retrouvé dans les citations de l’export"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 4,
+          "quote": "La valeur technique du candidat suivant les \ncapacités ou les justificatifs fournis  \n40%",
+          "anchor": "La valeur technique du candidat suivant les capacités ou les justificatifs fournis 40%"
+        }
+      ]
+    },
+    {
+      "id": "rc15",
+      "topic": "Pondération intervention",
+      "expected": "Capacité à intervenir : 15 % dans le tableau principal.",
+      "candidate_indices": [],
+      "issues": [
+        "Passage attendu non retrouvé dans les citations de l’export"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 4,
+          "quote": "La capacité à intervenir suivant l’Article I – \nConditions d’intervention du CCTP  \n15%",
+          "anchor": "La capacité à intervenir suivant l’Article I – Conditions d’intervention du CCTP 15%"
+        }
+      ]
+    },
+    {
+      "id": "rc16",
+      "topic": "Sous-critères techniques",
+      "expected": "Méthodologie 20 %, moyens/livrables 10 %, planning 10 %. Le texte annonce quatre sous-critères mais en liste trois : incohérence à signaler.",
+      "candidate_indices": [
+        35
+      ],
+      "issues": [
+        "Catégorie à revoir"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 4,
+          "quote": "Pertinence de la méthodologie proposée (20%)",
+          "anchor": "Pertinence de la méthodologie proposée (20%)"
+        }
+      ]
+    },
+    {
+      "id": "rc17",
+      "topic": "Négation sur le surcoût",
+      "expected": "Le changement de lieu ne doit PAS entraîner de surcoût ; le résumé ne doit pas inverser la négation.",
+      "candidate_indices": [
+        40
+      ],
+      "issues": [
+        "Catégorie à revoir",
+        "Élément 40 : Sens inversé : le résumé autorise un surcoût que la citation exclut",
+        "Élément 40 : La négation sur le surcoût n’est pas conservée"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 5,
+          "quote": "Un changement éventuel du lieu de réalisation de la prestation \nne saurait entrainer de surcoût, notamment au titre des déplacements.",
+          "anchor": "Un changement éventuel du lieu de réalisation de la prestation ne saurait entrainer de surcoût, notamment au titre des déplacements."
+        }
+      ]
+    },
+    {
+      "id": "rc18",
+      "topic": "Variantes",
+      "expected": "Les variantes sont indiquées comme non autorisées.",
+      "candidate_indices": [],
+      "issues": [
+        "Passage attendu non retrouvé dans les citations de l’export"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 2,
+          "quote": "Variantes  non autorisées",
+          "anchor": "Variantes non autorisées"
+        }
+      ]
+    },
+    {
+      "id": "rc19",
+      "topic": "Négociation éventuelle",
+      "expected": "La négociation est une possibilité de l’acheteur, pas une obligation de négocier ni une promesse de sélection.",
+      "candidate_indices": [
+        34
+      ],
+      "issues": [
+        "Catégorie à revoir"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 4,
+          "quote": "le pouvoir adjudicateur pourra négocier avec les \ncandidats dont l’offre aura été classée dans les 3 premières places",
+          "anchor": "le pouvoir adjudicateur pourra négocier avec les candidats dont l’offre aura été classée dans les 3 premières places"
+        }
+      ]
+    },
+    {
+      "id": "rc20",
+      "topic": "Incohérence du barème prix",
+      "expected": "Le tableau page 4 annonce 45 % pour le prix, la méthode page 5 indique 50/50. Signaler l’écart sans le résoudre arbitrairement.",
+      "candidate_indices": [
+        36
+      ],
+      "issues": [
+        "Élément 36 : Le résumé ne rapproche pas la méthode de notation des 45 % de la page 4"
+      ],
+      "human_review": "À relire",
+      "sources": [
+        {
+          "page": 5,
+          "quote": "L’offre la plus basse obtient la note maximale de 50/50.",
+          "anchor": "L’offre la plus basse obtient la note maximale de 50/50."
+        }
+      ]
+    }
+  ],
+  "pdf_sha256": "a3fafcfbf01b561e9d863b4e1c77f5e162b29e456f9a736cde7a39b7962c2af0",
+  "prediction_sha256": "94a666632174b15a287487208e710e17c41d8ca295a9e5b7e03c3cef8aee3bfb"
+}

@@ -1,0 +1,18 @@
+# Adapté du thème minimal fourni avec Streamlit.
+[theme]
+base = "light"
+primaryColor = "#2457A7"
+backgroundColor = "#F8FAFC"
+secondaryBackgroundColor = "#EFF4F8"
+textColor = "#172B4D"
+borderColor = "#DCE4EE"
+baseRadius = "10px"
+buttonRadius = "8px"
+baseFontSize = 15
+headingFontSizes = ["30px", "24px", "20px", "18px", "16px", "14px"]
+headingFontWeights = [700, 600, 600, 600, 500, 500]
+showWidgetBorder = true
+
+[theme.sidebar]
+backgroundColor = "#EAF0F6"
+secondaryBackgroundColor = "#FFFFFF"
