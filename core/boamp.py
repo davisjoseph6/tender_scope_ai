@@ -71,3 +71,18 @@ def notice_evidence(row: dict) -> list[dict]:
                          "provider": row["source_provider"], "idweb": row["idweb"],
                          "url": row["source_url"]})
     return evidence
+
+
+def notice_as_pages(row: dict) -> list[dict]:
+    """Build an explicitly labeled *virtual* page from the public API fields."""
+    name = f"BOAMP_API_FIELDS_{validated_id(row['idweb'])}.txt"
+    lines = [
+        "FICHE DE CHAMPS API BOAMP / DILA — page virtuelle, pas un PDF officiel.",
+        "Vérifier la version officielle et les rectificatifs sur : " + row["source_url"],
+        "Source API : " + BASE,
+    ]
+    for item in notice_evidence(row):
+        value = item["value"]
+        text = json.dumps(value, ensure_ascii=False, sort_keys=True) if not isinstance(value, str) else value
+        lines.append(item["field"] + " : " + text)
+    return [{"document": name, "page": 1, "text": "\n".join(lines)}]
