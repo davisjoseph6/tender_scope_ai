@@ -1,0 +1,28 @@
+name: Historical gold-set evaluation
+on:
+  push:
+    branches: [feature/local-demo-scoping-alignment]
+  workflow_dispatch:
+jobs:
+  historical-gold:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install pypdf
+        run: python -m pip install "pypdf>=6,<7"
+      - name: Download public historical RC and verify frozen SHA256
+        run: |
+          mkdir -p data/samples
+          curl --fail --location --retry 2 --silent --show-error \
+            'https://www.coeur-herault.fr/sites/default/files//field/pdf/consultation-maintenance_informatique-reglement-juin2024-v1.pdf' \
+            -o data/samples/RC_Coeur_Herault_2024.pdf
+          echo 'a3fafcfbf01b561e9d863b4e1c77f5e162b29e456f9a736cde7a39b7962c2af0  data/samples/RC_Coeur_Herault_2024.pdf' | sha256sum -c -
+      - name: Score historical structured export with verified primary document
+        run: python -m eval.field_metrics
+      - uses: actions/upload-artifact@v4
+        with:
+          name: historical-field-metrics
+          path: eval/reports/field_metrics.json
