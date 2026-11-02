@@ -1,10 +1,12 @@
-# Five-minute live demonstration (proposed)
+# Five-minute final demo — BOAMP access and verification
 
-1. Open Streamlit, select **Prototype local**, and load the *fictional* 3-document dossier (30 seconds).
-2. Show multiple candidate deadlines from RC and rectificatif, with page-bound exact quotes. Do not choose the authoritative document automatically (60 seconds).
-3. Show automatically flagged source passages and download the review checklist (60 seconds).
-4. Ask: **Quelle est la date limite de remise des offres ?** and show BM25 snippets, or switch to optional hybrid retrieval if Ollama bge-m3 is ready (60 seconds).
-5. Optionally generate a cited response with local Ollama (or existing Groq workflow after consent). If service/model unavailable, show transparent error and continue offline (45 seconds).
-6. Show existing evaluation report's 15/20 source coverage and the negation failure; explain limits and the human-review gate (45 seconds).
+**Preparation:** start Streamlit and verify `Avis BOAMP` works while online; also have `Prototype local` ready as a network-independent fallback. Never claim to access buyer documents behind authentication.
 
-**Backup:** keep the bundled fictional documents and screenshots/recording of a previously tested local demo. Do not call missing online services during a network outage.
+1. **0:00–0:45: user/problem.** A small French IT company scans BOAMP notices to find published subject, buyer, response date and a link to the public authoritative notice.
+2. **0:45–1:45: BOAMP read-only retrieval.** In **Avis BOAMP**, enter an actual BOAMP identifier such as `26-106035`, click **Lire cet avis BOAMP**. Show the published field names and provenance. Open official BOAMP link. Explain that gated DCE access is intentionally out of scope.
+3. **1:45–3:00: negative/verification case.** In **Prototype local**, click **Charger le dossier fictif (3 documents)**. Show the two differing candidate deadlines and the prominent **REQUIRES VERIFICATION / À VÉRIFIER** warning. Explain why we do not silently prefer a date; cite both sources.
+4. **3:00–3:45: retrieval.** Ask the deadline question, show BM25 source passages. Hybrid BM25 + local embeddings and locally generated cited answer are optional, only if installed and previously tested.
+5. **3:45–4:40: quantitative evidence.** Show `docs/EVALUATION_REPORT.md`: historical structured output **10/20 strict value+source checks**, **0/1 exact deadline**. One-tender and unvalidated gold caveats. If available, show a *real* prompt-only output from `eval/run_prompt_only.py`; otherwise explicitly say pending.
+6. **4:40–5:00: limitations/safety.** No OCR or private buyer portal, no automated submission, review remains human.
+
+**Offline backup:** bundled fictional texts always work without network or LLM. Avoid presenting artificial demo documents as actual BOAMP tenders.
