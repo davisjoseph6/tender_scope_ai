@@ -3,7 +3,7 @@ from core.llm import settings
 
 
 def render_sidebar():
-    options = ["Tableau de bord", "Mes appels d’offres", "Analyse intelligente", "Profil entreprise", "Décision Bid/No-Bid", "Assistant IA", "Prototype local"]
+    options = ["Tableau de bord", "Mes appels d’offres", "Analyse intelligente", "Profil entreprise", "Décision Bid/No-Bid", "Assistant IA", "Prototype local", "Avis BOAMP"]
     previous = st.session_state.get("navigation", options[0])
     migrated = {"Dossier": "Mes appels d’offres", "Points clés": "Analyse intelligente", "Décision": "Décision Bid/No-Bid"}.get(previous, previous)
     if migrated not in options:
