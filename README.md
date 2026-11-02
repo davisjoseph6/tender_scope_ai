@@ -179,3 +179,33 @@ Lire `docs/SYSTEM_CARD.md`, `docs/DEMO_SCRIPT.md`, `docs/EVALUATION_REPORT.md` e
 **Sources et jeux de données :** le dossier fictif est écrit spécifiquement pour la démonstration. Pour une analyse réelle, charger les PDFs officiels téléchargeables et vérifier les droits de réutilisation, la version, les éventuels rectificatifs et les pages sans texte. L'outil ne soumet pas de candidature.
 
 **Utilisation d'assistants IA :** cette branche a été rédigée avec l'aide de ChatGPT pour la conception, la programmation et la documentation ; chaque membre de l'équipe doit relire les modifications et pouvoir justifier les résultats.
+
+## Périmètre après retour du superviseur (2 novembre 2026)
+
+**Source des avis en production : BOAMP / DILA uniquement**, via l'API publique OpenDataSoft. L'écran **Avis BOAMP** récupère **un identifiant exact** (ex. `26-106035`), affiche les champs publics et leur provenance et renvoie vers le lien officiel. Il ne se connecte à **aucun profil acheteur** et ne tente pas de récupérer le RC/CCTP/CCAP derrière un login. Ces documents peuvent être ajoutés manuellement *uniquement s'ils sont librement accessibles et réutilisables*, et ne sont pas revendiqués comme obtenus par l'API BOAMP. Le texte brut BOAMP et ses champs ne suffisent pas à démontrer l'éligibilité d'une entreprise.
+
+### Comparaison avec le gold set
+
+La référence de 20 cas du RC 2024 sert de contrôle historique ; elle **ne représente pas un jeu d'avis BOAMP diversifié**. L'export Groq historique est un pipeline d'**extraction structurée** (PAS un baseline prompt-only).
+
+```bash
+python -m eval.field_metrics
+# Pour un baseline réellement prompt-only à partir du même RC, sans retrieval :
+python -m eval.run_prompt_only --backend groq
+python -m eval.field_metrics --compare eval/prompt_only_groq.json
+# Alternative uniquement locale, avec un modèle différent :
+python -m eval.run_prompt_only --backend ollama
+python -m eval.field_metrics --compare eval/prompt_only_ollama.json
+```
+
+Ces commandes exigent le PDF historique local (`eval/README.md`). La commande Groq exige une clé définie dans `.env` et envoie le PDF au fournisseur **uniquement lorsque vous la lancez** ; à exécuter uniquement pour des documents publics et autorisés. La variante Ollama ne quitte pas l'ordinateur, mais le modèle différent empêche d'attribuer les écarts uniquement au RAG. Le rapport est généré à `eval/reports/field_metrics.json`.
+
+### Résultat de contrôle automatique sur l'ancien export (historique, non validé humainement)
+
+- Exacte citation sur la bonne page / cas de référence : **15/20**.
+- **Valeur exigée présente dans le résumé ET passage source correspondant : 10/20 = 50%**, Wilson 95% **29,9%–70,1%**.
+- **Date/heure exactes dans le résumé : 0/1**, Wilson 95% **0%–79,4%**.
+- **Baseline prompt-only : non mesuré tant que la génération n'a pas réellement tourné.**
+- Les vingt vérifications sont des chaînes normalisées strictes ; c'est un **proxy**, pas une validation sémantique, un rappel exhaustif, ni une mesure de généralisation. Un seul dossier de consultation = observations corrélées.
+
+Une **contradiction de dates** figure dans le dossier fictif de démonstration : l'interface affiche en évidence **REQUIRES VERIFICATION / À VÉRIFIER** et toutes les citations. Une annonce BOAMP marquée `RECTIFICATIF` ou liée à une autre affiche également une alerte.
