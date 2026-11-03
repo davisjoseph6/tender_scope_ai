@@ -1,252 +1,238 @@
-# Bid/No-Bid Copilot
+# TenderScope AI
 
-Application d’aide à l’analyse des appels d’offres pour une PME informatique.
+**Evidence-grounded public procurement analysis and bid-preparation prototype**
 
-## Démarrer sur Windows
+TenderScope AI helps small and medium-sized businesses inspect French public tender notices, extract requirements from accessible documents, investigate relevant passages, flag uncertain deadlines, and prepare a **human-reviewed** bid/no-bid checklist. It is a Python + Streamlit research/course prototype—not a procurement portal, autonomous bidding agent, legal advisor, or authenticity-certification system.
 
-Dans PowerShell, depuis le dossier du projet :
+The interface is primarily **in French**; this README is in English.
 
-```powershell
-py -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m streamlit run app.py
-```
+> **Principle:** Show where an answer came from, expose uncertainty, and leave consequential procurement decisions to the user. An exact quotation is not proof that the AI interpreted it correctly.
 
-Dans VS Code, sélectionner `.venv\Scripts\python.exe` via **Python: Select Interpreter**.
-L’activation de l’environnement n’est pas nécessaire avec ces commandes.
+## Quick start (Ubuntu 24.04 / WSL2)
 
-## Les six espaces
-
-- **Tableau de bord** : dossiers de la session, verdicts manuels, échéances à vérifier et avancement.
-- **Mes appels d’offres** : import, lecture des pages et historique de session.
-- **Analyse intelligente** : règles locales ou extraction structurée Groq avec citations vérifiées.
-- **Profil entreprise** : capacités de la PME, enregistrées en session et exportables.
-- **Décision Bid/No-Bid** : checklist manuelle et justification du verdict.
-- **Assistant IA** : recherche locale ou réponse Groq fondée sur les fragments retrouvés par BM25.
-
-Les écrans indiquent le moteur réellement utilisé. Aucun appel Groq automatique :
-un clic et l’autorisation d’envoi du texte sont nécessaires. Le RAG est lexical BM25,
-sans embeddings ni reranker. La décision reste fondée sur une checklist humaine.
-
-## Configurer Groq et faire un premier essai
-
-Les dépendances sont dans `requirements.txt`. Dans `.env` à la racine, renseigner
-`GROQ_API_KEY` avec une clé créée depuis https://console.groq.com/keys. Le modèle
-par défaut est `openai/gpt-oss-20b`, configurable via `GROQ_MODEL`. `.env` est ignoré
-par Git ; ne jamais partager la clé dans un chat ou dans le code. `.env.example`
-fournit le modèle de configuration. La clé est lue côté serveur, jamais exportée.
-
-1. Relancer Streamlit depuis la racine après l’installation des dépendances.
-2. Charger un vrai RC et éventuellement son CCTP dans **Mes appels d’offres**.
-3. Dans **Analyse intelligente**, choisir **Groq · IA**, autoriser l’envoi du texte
-   à Groq et cliquer sur **Extraire les exigences avec Groq**.
-4. Relire chaque résumé et sa citation dans le PDF officiel, puis exporter le JSON.
-5. Dans **Assistant IA**, choisir **Groq + RAG BM25** et poser une question précise.
-   Les fragments sont sélectionnés localement, puis envoyés au modèle au clic.
-
-Le client utilise le SDK Groq et JSON Schema strict, puis valide les données avec
-Pydantic. Une citation sans fragment connu, vide ou absente du texte transmis fait
-écarter la proposition concernée. Les variations d’espaces, espaces insécables et
-retours à la ligne sont tolérées ; le texte original est restitué dans l’export.
-Les autres modifications (mots, nombres, ponctuation) ne sont pas corrigées.
-Une extraction partielle affiche le nombre de propositions rejetées ; si toutes
-sont rejetées, aucun nouveau résultat n’est enregistré. Pour une réponse RAG,
-une citation invalide fait rejeter la réponse entière.
-Cela vérifie l’existence de la citation, pas l’exactitude de
-l’interprétation. Les fragments sont limités à une page et l’extraction couvre tous
-ceux qui contiennent du texte, par lots de 2 (maximum 120 fragments par dossier).
-Si la limite de génération est atteinte, le lot est séparé en deux. Un fragment seul
-dispose d’une unique nouvelle tentative avec un budget de sortie plus élevé. Les
-réponses tronquées ne sont jamais interprétées comme une extraction complète.
-Les lots terminés sont conservés en session. Après une limite de débit Groq (429),
-un nouveau clic reprend les lots restants du même dossier et du même modèle.
-L’écran affiche la progression ; une extraction interrompue n’est pas une analyse complète.
-Sur une erreur 429, le délai `Retry-After` communiqué par Groq est respecté ; sans ce
-délai, une pause indicative de 60 secondes est proposée. Les boutons Groq sont
-désactivés pendant cette pause dans les deux écrans ; **Actualiser le délai** ne
-fait aucun appel API. Les exigences déjà sourcées sont exportables en JSON partiel.
-Cette pause ne permet pas de contourner un quota journalier épuisé.
-Les catégories transmises au modèle utilisent des codes ASCII puis sont affichées
-en français. Les prestations techniques et options sont distinctes des critères de
-sélection. Une erreur Groq `json_validate_failed` déclenche une reprise bornée sur des
-lots plus petits ; les autres erreurs 400 ne sont pas retentées automatiquement.
-Les dossiers trop longs sont refusés avant tout envoi, sans troncature silencieuse.
-Les pages sans texte sont signalées ; l’OCR reste à ajouter. Les erreurs et réponses
-tronquées n’écrasent pas un précédent résultat valide. Chaque dossier conserve ses
-propres résultats IA pendant la session.
-
-Références : [SDK et démarrage Groq](https://console.groq.com/docs/quickstart),
-[sorties structurées Groq](https://console.groq.com/docs/structured-outputs).
-
-## Fonctionnalités disponibles
-
-- Import de plusieurs PDF.
-- Extraction du texte avec nom du document et numéro de page.
-- Consultation page par page et export JSON.
-- Signalement des pages sans texte et des PDF illisibles.
-- Détection indicative RC / CCTP / CCAP / AE / BOAMP.
-- Points clés repérés par règles avec document, page et citation exacte.
-- Checklist manuelle avec verdict Go / No-Go / À vérifier et export JSON.
-
-Cliquez sur **Charger ces documents** après avoir sélectionné les PDF. Les documents
-restent disponibles dans les six écrans pendant la session. Charger un dossier
-crée une nouvelle entrée d’historique avec sa propre checklist. Le dossier précédent
-reste accessible dans **Historique de session**. **Nouvelle analyse** prépare un espace
-vide sans supprimer les anciens dossiers. **Vider le dossier** efface uniquement le
-dossier actif et sa checklist. Rien n’est sauvegardé sur disque
-automatiquement ; les exports se téléchargent dans le navigateur.
-
-Le verdict dépend des vérifications saisies par l’utilisateur : un critère obligatoire
-non satisfait déclenche No-Go. Go exige une checklist résolue et la confirmation
-d’une revue complète. Il ne constitue pas une validation automatique d’éligibilité.
-
-## Organisation
-
-`app.py` configure l’application et sélectionne l’écran. `core/` contient la lecture
-PDF, la détection documentaire, le repérage par règles et la décision, sans importer
-Streamlit. `ui/` contient les six écrans et la navigation. Les pages sont partagées
-via `st.session_state["pages"]`. Le thème reste dans `.streamlit/config.toml` ;
-`ui/styles.py` fournit un point d’extension sans injecter de CSS inutile.
-
-`data/samples/` peut accueillir vos PDF locaux de test et `data/exports/` vos exports
-enregistrés manuellement. Ces données sont exclues du suivi Git.
-
-## Vérification
-
-Un premier jeu d’évaluation hors ligne contient 20 cas issus du RC de test et une
-copie de l’export initial. Voir [eval/README.md](eval/README.md). Pour régénérer le
-rapport sans appel Groq :
-
-```powershell
-.\.venv\Scripts\python.exe -m eval.evaluate
-```
-
-```powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-```
-
-L’import des PDF est local et en mémoire. Les modes Groq envoient le texte nécessaire
-à un service externe après validation explicite. Le profil entreprise n’est pas envoyé.
-Les scans nécessitant un OCR ne sont pas encore pris en charge.
-
-## Prochaines étapes
-
-1. Valider l’extraction et les réponses Groq sur un véritable DCE.
-2. Comparer automatiquement les exigences avec le profil : Met / Not met / Unclear / Not found.
-3. Proposer une recommandation argumentée, soumise à vérification humaine.
-4. Évaluer sur des documents annotés, notamment les faux verdicts d’éligibilité.
-
-Les tests automatisés utilisent des réponses Groq simulées : ils ne mesurent ni
-la qualité réelle du modèle ni sa résistance aux injections sur un DCE. Le prompt
-traite les sources comme des données non fiables ; aucun outil externe ni action
-de candidature n’est donné au modèle. Les citations exactes et les formats structurés
-ne suffisent pas à prouver la pertinence ou l’exhaustivité des conclusions.
-
-
-## Prototype local pour la soutenance du 3 novembre 2026
-
-Cette branche ajoute **Prototype local** dans la navigation : une démo entièrement hors ligne avec trois documents **fictifs**, des références page/document, des passages candidats, et un avertissement sur deux dates limites divergentes. Elle ne change pas les résultats historiques de `eval/`.
-
-### Installation locale (Ubuntu 24.04 / WSL2)
+Requires Python 3.10+ (with `venv`/`pip`), Git, and an internet connection for the **live** BOAMP lookup. The fictional dossier, local rules, and BM25 search do not require an external AI key or internet access.
 
 ```bash
+git clone https://github.com/davisjoseph6/tender_scope_ai.git
+cd tender_scope_ai
 git switch feature/local-demo-scoping-alignment
+
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
-python -m streamlit run app.py
+python -m streamlit run app.py --server.headless true --server.address 127.0.0.1
 ```
 
-Sur Windows, utiliser la procédure PowerShell décrite en tête de ce README, puis sélectionner **Prototype local** dans la barre latérale. Cliquer sur **Charger le dossier fictif (3 documents)**. La recherche BM25 et la vérification indicative des dates ne nécessitent ni Groq, ni Ollama, ni connexion Internet.
+Open **http://localhost:8501** in your Windows browser. Leave the Streamlit terminal running; stop with `Ctrl+C`. If you already cloned the project, run `git pull --ff-only` on the feature branch instead of cloning again. The branch linked above is the current prototype; its changes are also under review in [PR #1](https://github.com/davisjoseph6/tender_scope_ai/pull/1).
 
-### Hybrid RAG et réponse locale (facultatifs)
+### Windows PowerShell alternative
 
-Pour montrer le chemin technique de la scoping canvas, installer et lancer Ollama **sur la machine locale** avec les modèles correspondants :
+```powershell
+py -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m streamlit run app.py --server.address 127.0.0.1
+```
+
+Do not expose this development server to the public internet. The application has not been hardened as a multi-user production service.
+
+## Try it in two minutes — no external LLM required
+
+1. Open **Prototype local** and click **Charger le dossier fictif (3 documents)**.
+2. Inspect the two candidate submission deadlines: **15 December 2026 at 12:00** (`RC_FICTIF.txt`) and **18 December 2026 at 12:00** (`AVENANT_FICTIF.txt`). The application deliberately displays **REQUIRES VERIFICATION / À VÉRIFIER**, without choosing the legally authoritative date.
+3. Ask the prefilled question, “Quelle est la date limite de remise des offres ?”, select **BM25 hors ligne**, and click **Rechercher les passages**. Open the retrieved source fragments.
+4. Optionally export the JSON review checklist. The demo files in `data/demo/` are **fictional** and must not be used for a real tender.
+
+### Try a genuine public BOAMP notice
+
+Go to **Avis BOAMP**, enter `26-99630`, and click **Lire cet avis BOAMP**. The application queries the DILA/BOAMP OpenDataSoft API, displays published metadata (including the deadline field if available), preserves field provenance, and links to the official notice. A direct HTTP 200 response for this notice was observed on 3 November 2026; API availability and the notice's current status must still be checked at use time.
+
+If live access fails, click **Charger un exemple réel BOAMP (copie hors ligne)**. This is a **labeled, non-live snapshot**, not a fresh API response. The **Ouvrir les champs BOAMP pour la recherche locale** action creates a searchable *virtual page of API fields*; it does **not** retrieve a complete original consultation regulation or private DCE.
+
+## Features and screens
+
+| Screen (French UI label) | Implemented purpose |
+| --- | --- |
+| **Tableau de bord** | Session overview and review progress |
+| **Mes appels d’offres** | Upload multiple text-based PDFs, inspect extracted text and pages, export source-indexed JSON, switch dossiers |
+| **Analyse intelligente** | Candidate extraction by local rules or structured extraction via Groq, local Ollama, or Grok (xAI) |
+| **Profil entreprise** | Record company turnover, skills, certifications, staffing and references for manual review; export JSON |
+| **Décision Bid/No-Bid** | Manual compliance checklist with conservative `Go` / `No-Go` / `À vérifier` logic |
+| **Assistant IA** | Local lexical passage search or BM25-grounded questions to Groq/Grok |
+| **Prototype local** | Reproducible fictitious dossier, deadline-conflict flags, BM25 or optional BGE-M3 hybrid retrieval, optional local Qwen answer |
+| **Avis BOAMP** | Read-only lookup of a public notice ID and published metadata through BOAMP |
+
+The automatic comparison of extracted requirements to company capabilities is **not implemented**. A `Go` outcome means the user has marked all checklist entries resolved and confirmed a complete review; it is **not** an independently verified eligibility verdict.
+
+## How the engineering works
+
+```text
+Public BOAMP API ──> Published metadata + source provenance ───┐
+                                                               │
+User PDF upload ──> pypdf page text ──> document/page records ──┤
+                                                               ├─> Rule/date checks
+Fictional local dossier ────────────────────────────────────────┤
+                                                               ├─> Chunking and retrieval
+                                                               │      ├─ BM25 (lexical)
+                                                               │      └─ Optional BGE-M3 dense embeddings
+                                                               │            + cosine similarity + RRF
+                                                               └─> Optional LLM extraction or Q&A
+                                                                      ├─ Groq
+                                                                      ├─ Grok (xAI)
+                                                                      └─ Ollama (local)
+                                                                            │
+                                      Pydantic JSON schema + exact citation checks
+                                                                            │
+                                           Streamlit evidence and human review
+```
+
+**Ingestion.** `core/boamp.py` validates BOAMP IDs and reads *public* OpenDataSoft fields (`records[].record.fields`). `core/pdf_reader.py` uses `pypdf` to extract text with the original document name and page number. `core/doc_types.py` detects likely RC/CCTP/CCAP/AE/BOAMP types. A blank extracted page is reported; no OCR is provided.
+
+**Deterministic analysis.** `core/extraction.py` uses French keyword/regex rules to identify candidate passages, not to make legal determinations. `core/deadlines.py` parses recognizable date/time candidates and flags zero or multiple distinct values for verification. An amendment's legal precedence is not established by this rule.
+
+**Retrieval.** `core/rag.py` creates overlapping, page-bound text chunks (default 2,400 characters, 300 overlap), tokenizes text, and ranks fragments using BM25. In the optional **Prototype local** hybrid mode, `core/hybrid.py` asks local Ollama's `/api/embed` endpoint for dense embeddings with `bge-m3`, computes cosine similarity, and combines BM25 and semantic rankings using **reciprocal rank fusion (RRF)**. Embeddings are recomputed on request; there is **no persistent vector index, Chroma store, or cross-encoder reranker**. Standard Groq/Grok Q&A uses **BM25**, not the optional hybrid mode.
+
+**Structured generation.** The AI clients submit system instructions and a JSON-serialized `{"task": ..., "sources": ...}` user message, then request output conforming to Pydantic schemas. Extraction and Q&A are distinct flows: extraction processes document chunks; BM25-grounded Q&A retrieves passages before generation. The project uses pre-trained models for **inference**, not fine-tuning or model training.
+
+**Source checks.** `core/llm.py` rejects proposed quotations if their source ID was not supplied or the quoted text cannot be found in the corresponding fragment (minor whitespace variation is tolerated). Valid citation existence does **not** guarantee a correct summary, complete coverage, or correct interpretation of negations and deadlines. Final review remains human.
+
+**State.** `ui/workspace.py` stores active dossiers, checkpoints and results in Streamlit `st.session_state`. Dossiers are **session-only**, not backed by a persistent document database. Export important results.
+
+## Optional AI setup
+
+The base demo works without an API key. AI calls are optional and may consume resources, tokens, or external-service credits. Only send documents to third-party providers when you are authorized to do so.
+
+### Local Ollama — Qwen and BGE-M3
+
+Install [Ollama](https://ollama.com/) and make sure its local service is running. Then:
 
 ```bash
 ollama pull bge-m3
 ollama pull qwen2.5:7b
-ollama serve
+ollama list
 ```
 
-Si Ollama est déjà lancé comme service, ne pas démarrer une seconde instance. Dans **Prototype local**, sélectionner **Hybrid BM25 + embeddings Ollama**, puis **Rechercher les passages**. Cliquer sur **Générer une réponse avec Ollama** uniquement après avoir vérifié que les passages pertinents ont été retrouvés. Des modèles différents peuvent être sélectionnés par `OLLAMA_EMBED_MODEL`, `OLLAMA_MODEL` et `OLLAMA_BASE_URL` (HTTP localhost seulement). Le mode hybride indexe temporairement les fragments par requête ; **Chroma / index persistant et reranking ne sont pas encore implémentés**.
+If Ollama is not running, start it with `ollama serve`; **do not** start a second instance if the system service is already active.
 
-### Évaluation, sécurité et limites
+Configuration can be overridden using environment variables: `OLLAMA_MODEL` (default `qwen2.5:7b`), `OLLAMA_EMBED_MODEL` (default `bge-m3`), and `OLLAMA_BASE_URL` (default `http://127.0.0.1:11434`; localhost is required by the app). Local Ollama actions are exposed in **Analyse intelligente** and **Prototype local**. Ollama's model output is still subject to schema validation and source checks.
 
-Lire `docs/SYSTEM_CARD.md`, `docs/DEMO_SCRIPT.md`, `docs/EVALUATION_REPORT.md` et `docs/RED_TEAM_LOG.md`. Les tests unitaires sur les dates et le classement hybride sont déterministes et ne démontrent pas la qualité réelle des LLM. L'ancienne évaluation contient seulement 20 références initiales d'un marché historique ; elle doit encore être relue indépendamment. Les citations trouvées ne garantissent pas que leur interprétation est correcte. Les avertissements sur les échéances sont des candidats à vérifier manuellement et **non des décisions juridiques**.
+### Groq and xAI Grok — external services
 
-**Sources et jeux de données :** le dossier fictif est écrit spécifiquement pour la démonstration. Pour une analyse réelle, charger les PDFs officiels téléchargeables et vérifier les droits de réutilisation, la version, les éventuels rectificatifs et les pages sans texte. L'outil ne soumet pas de candidature.
+Create a `.env` file in the project root (**ignored by Git**). Example, using only the credentials you actually intend to activate:
 
-**Utilisation d'assistants IA :** cette branche a été rédigée avec l'aide de ChatGPT pour la conception, la programmation et la documentation ; chaque membre de l'équipe doit relire les modifications et pouvoir justifier les résultats.
+```dotenv
+GROQ_API_KEY=replace_with_your_groq_key
+GROQ_MODEL=openai/gpt-oss-20b
 
-## Périmètre après retour du superviseur (2 novembre 2026)
+XAI_API_KEY=replace_with_your_xai_key
+XAI_MODEL=grok-4.7
+```
 
-**Source des avis en production : BOAMP / DILA uniquement**, via l'API publique OpenDataSoft. L'écran **Avis BOAMP** récupère **un identifiant exact** (ex. `26-99630`), affiche les champs publics et leur provenance et renvoie vers le lien officiel. Il ne se connecte à **aucun profil acheteur** et ne tente pas de récupérer le RC/CCTP/CCAP derrière un login. Ces documents peuvent être ajoutés manuellement *uniquement s'ils sont librement accessibles et réutilisables*, et ne sont pas revendiqués comme obtenus par l'API BOAMP. Le texte brut BOAMP et ses champs ne suffisent pas à démontrer l'éligibilité d'une entreprise.
+- **Groq** ([console](https://console.groq.com/keys)) uses its Python SDK and Chat Completions with structured JSON output. In **Analyse intelligente**, choose **Groq · IA**. In **Assistant IA**, choose **Groq + RAG BM25**.
+- **Grok (xAI)** ([console](https://console.x.ai/)) is a **different provider** and uses the xAI Responses API. Choose **Grok · xAI** for extraction or **Grok (xAI) + RAG BM25** for questions.
+- Each external AI workflow requires the corresponding authorization checkbox **and** button click. Check that your selected model is enabled for your account. A configured key alone does not prove authorization. External calls may incur charges.
+- Never commit `.env`, paste secrets into issues, or publish screenshots containing credentials.
 
-### Comparaison avec le gold set
+Provider errors, rate limits, and invalid structured outputs are surfaced as bounded failures. Long extraction jobs save completed chunk progress in the current session; incomplete work is not represented as fully processed. The LLM has no tool or permission to submit bids.
 
-La référence de 20 cas du RC 2024 sert de contrôle historique ; elle **ne représente pas un jeu d'avis BOAMP diversifié**. L'export Groq historique est un pipeline d'**extraction structurée** (PAS un baseline prompt-only).
+## Source code map
+
+```text
+tender_scope_ai/
+├── app.py                    # Streamlit entry point and navigation
+├── ui/
+│   ├── page_dossier.py       # PDF uploader and document viewer
+│   ├── page_boamp.py         # Public BOAMP notice lookup
+│   ├── page_local_demo.py    # Offline demo and optional hybrid retrieval UI
+│   ├── page_points_cles.py   # Rules / Groq / Ollama / Grok extraction
+│   ├── page_assistant.py     # Search and BM25-grounded Q&A
+│   ├── page_decision.py      # Human bid/no-bid checklist
+│   ├── page_profile.py       # Company profile input
+│   └── workspace.py          # Per-session dossier state
+├── core/
+│   ├── boamp.py              # Read-only public API adapter
+│   ├── pdf_reader.py         # PDF page text extraction
+│   ├── doc_types.py          # Document type heuristics
+│   ├── extraction.py         # Deterministic requirement clues
+│   ├── deadlines.py          # Deadline candidate parsing and conflict flagging
+│   ├── rag.py                # Page chunking and BM25 ranking
+│   ├── hybrid.py             # Local bge-m3 embeddings, cosine, RRF
+│   ├── local_llm.py          # Local Ollama structured generation
+│   ├── ollama_extraction.py  # Qwen extraction workflow
+│   ├── llm.py                # Groq client, Pydantic schemas, citation checks
+│   ├── grok.py               # xAI client and extraction / Q&A
+│   └── scoring.py            # Conservative manual decision logic
+├── data/demo/                # Three clearly labeled fictional text documents
+├── eval/                     # Historical gold set, baselines and metrics
+├── tests/                    # Deterministic unit and integration-style tests
+├── docs/                     # System card, evaluation and demo references
+└── .github/workflows/        # Automated tests and historical evaluation
+```
+
+## Evidence and evaluation
+
+The existing historical evaluation uses **one public 2024 consultation regulation** (RC Cœur d'Hérault) and **20 manually prepared reference field checks**. These annotations still require independent expert review, and the 20 fields belong to **one tender**, not 20 independent tenders.
+
+| Historical structured Groq export (not prompt-only) | Result |
+| --- | ---: |
+| Gold cases with matching source passage | 15/20 (75%) |
+| Expected field phrases **and** corresponding source passage | **10/20 (50%)** |
+| Exact deadline date **and time** in generated summary | **0/1** |
+| Original exported quotations found in source pages | 55/55 (textual existence only) |
+
+The 10/20 measure is a **strict string-matching proxy**, not expert-adjudicated semantic accuracy. A descriptive Wilson 95% interval is approximately **29.9%–70.1%**, but it must **not** be interpreted as an estimate of generalization across tenders. The incorrect/missing deadline detail and a negation error are important documented failure cases.
+
+Read [the evaluation report](docs/EVALUATION_REPORT.md) and [evaluation dataset instructions](eval/README.md). To reproduce locally, first download the historical source PDF to `data/samples/RC_Coeur_Herault_2024.pdf` as described in `eval/README.md`. A pinned SHA-256 prevents silent substitution of another PDF version.
 
 ```bash
 python -m eval.field_metrics
-# Pour un baseline réellement prompt-only à partir du même RC, sans retrieval :
+
+# Optional: a NEW prompt-only one-call experiment on the whole PDF.
+# These commands invoke the configured provider and may incur charges.
 python -m eval.run_prompt_only --backend groq
 python -m eval.field_metrics --compare eval/prompt_only_groq.json
-# Alternative uniquement locale, avec un modèle différent :
+
+# Alternatives (different models; not controlled comparisons of RAG alone):
 python -m eval.run_prompt_only --backend ollama
-python -m eval.field_metrics --compare eval/prompt_only_ollama.json
+python -m eval.run_prompt_only --backend grok
 ```
 
-Ces commandes exigent le PDF historique local (`eval/README.md`). La commande Groq exige une clé définie dans `.env` et envoie le PDF au fournisseur **uniquement lorsque vous la lancez** ; à exécuter uniquement pour des documents publics et autorisés. La variante Ollama ne quitte pas l'ordinateur, mais le modèle différent empêche d'attribuer les écarts uniquement au RAG. Le rapport est généré à `eval/reports/field_metrics.json`.
+The repository also contains `eval/prompt_only_ollama.json`, but it uses a **different model** from the historical Groq output; any score difference cannot be attributed solely to retrieval. A meaningful comparison requires a frozen dataset, the **same** model, consistent prompts/schema and independent human checks.
 
-### Résultat de contrôle automatique sur l'ancien export (historique, non validé humainement)
-
-- Exacte citation sur la bonne page / cas de référence : **15/20**.
-- **Valeur exigée présente dans le résumé ET passage source correspondant : 10/20 = 50%**, Wilson 95% **29,9%–70,1%**.
-- **Date/heure exactes dans le résumé : 0/1**, Wilson 95% **0%–79,4%**.
-- **Baseline prompt-only : non mesuré tant que la génération n'a pas réellement tourné.**
-- Les vingt vérifications sont des chaînes normalisées strictes ; c'est un **proxy**, pas une validation sémantique, un rappel exhaustif, ni une mesure de généralisation. Un seul dossier de consultation = observations corrélées.
-
-Une **contradiction de dates** figure dans le dossier fictif de démonstration : l'interface affiche en évidence **REQUIRES VERIFICATION / À VÉRIFIER** et toutes les citations. Une annonce BOAMP marquée `RECTIFICATIF` ou liée à une autre affiche également une alerte.
-
-
-## Correctifs de démonstration du 3 novembre 2026
-
-- **BOAMP** : le champ de recherche propose désormais l'avis BOAMP `26-99630` (identifiant présent dans la liste publique DILA), au lieu d'un identifiant d'essai non confirmé. La requête API demande seulement les champs utiles via `select=`, pour ne pas télécharger les structures XML volumineuses. Les erreurs HTTP, DNS et JSON sont distinguées. **Le test en direct est nécessaire sur le poste WSL**, car le CI teste des réponses simulées.
-- **Plan B BOAMP** : bouton **Charger un exemple réel BOAMP (copie hors ligne)**. Ce résultat est explicitement marqué « NOT LIVE », avec une échéance à vérifier ; il ne constitue pas une preuve de fonctionnement de l'API.
-- **Ollama** : dans **Analyse intelligente**, choisissez **Ollama · local**, après avoir chargé le dossier fictif dans **Prototype local**, puis cliquez sur **Extraire localement avec Ollama**. Extraction structurée fragment par fragment, citation exacte contrôlée, reprise en session ; aucun appel Groq. `qwen2.5:7b` doit être installé et Ollama démarré. Le système peut rejeter des propositions non sourcées ; la qualité sémantique reste à évaluer.
-- **Groq** : une clé présente dans `.env` ne prouve pas son autorisation. Une erreur HTTP 401 signale l'authentification ; HTTP 403 signale une permission insuffisante. Si Groq est inaccessible, utilisez Ollama ou les règles locales.
-
-Pour tester directement l'API sur Ubuntu/WSL (aucune clé API requise) :
+Run regression tests with:
 
 ```bash
-curl --fail-with-body -sS -G \
-  'https://boamp-datadila.opendatasoft.com/api/explore/v2.0/catalog/datasets/boamp/records' \
-  --data-urlencode 'select=idweb,objet,nomacheteur,datelimitereponse,dateparution,etat' \
-  --data-urlencode 'where=idweb="26-99630"' \
-  --data-urlencode 'limit=1'
+python -m unittest discover -s tests -v
 ```
 
-Si le service répond `{"results": [...]}`, les données sont issues de l'API ; si les résultats sont vides, vérifier l'ID/le jeu de données. Si `curl` échoue, relever le code HTTP ou l'erreur DNS et utiliser le plan B pour la démonstration.
+GitHub Actions runs the unit tests and historical gold-set checks. API calls in unit tests are simulated; passing tests **does not** establish that external providers are accessible or that generated answers are correct. A source-PDF-dependent test can be skipped in CI if its untracked PDF is absent.
 
+## Live presentation: three speakers, under 10 minutes
 
-## xAI Grok provider — separate from Groq
+Suggested target **9 min 20 sec**, leaving **40 seconds** for delays:
 
-Grok is xAI's model service; it does **not** use the Groq key. Configure in the ignored .env file (do not commit or paste tokens):
+| Time | Presenter | Live action |
+| --- | --- | --- |
+| 0:00–2:40 | **A — problem and provenance** | Introduce the use case; show **Avis BOAMP** and public notice `26-99630` (or honestly labeled offline snapshot) |
+| 2:40–6:00 | **B — document intelligence** | Show the preloaded fictional dossier, both conflicting deadlines, and BM25 retrieval of the source passages |
+| 6:00–9:20 | **C — LLM and evaluation** | Show a **previously executed and checked** Ollama extraction, explain JSON/schema/citation validation, and present the historical field+source metrics |
 
-    XAI_API_KEY=<paste-your-key-locally>
-    XAI_MODEL=grok-4.7
+**Before presenting:** run the unit tests; test the real BOAMP connection; pre-load the fictional dossier; rehearse the Ollama result; open the evaluation report. If the model or network fails, fall back to the deterministic offline demo. Do **not** present a saved result as a fresh live inference or imply that the fictional tender is an official government notice. See [the shorter demonstration walkthrough](docs/DEMO_SCRIPT.md).
 
-The app uses the xAI Responses API at https://api.x.ai/v1/responses with strict JSON Schema, Pydantic validation and page-bound exact-citation checking. xAI is a paid external provider. No text is sent until you explicitly authorize and press a Grok action button. This is separate from **Groq · IA** and **Ollama · local**.
+## Safety, scope, and limitations
 
-- Load a public BOAMP record or a fictitious dossier.
-- In **Analyse intelligente**, select **Grok · xAI**, authorize transmission, then click **Extraire les exigences avec Grok (xAI)**.
-- In **Assistant IA**, select **Grok (xAI) + RAG BM25** for BM25-grounded questions.
-- For a *real* Grok prompt-only evaluation: python -m eval.run_prompt_only --backend grok, then python -m eval.field_metrics --compare eval/prompt_only_grok.json. This is a new model and not a controlled within-model Groq comparison.
+- **No document authenticity verification:** the app does not compare uploaded PDFs against original government-hosted files, validate digital signatures, or establish that an uploaded document is the latest authoritative version.
+- **Public data only:** BOAMP metadata is accessed read-only. No login bypass, protected buyer-profile scraping, automated retrieval of gated DCE documents, or bid submission.
+- **No OCR:** scanned/image-only PDFs may contain no extractable text. Missing source text is reported, not invented.
+- **No automated eligibility assessment:** company-profile comparison and full requirement coverage remain manual; the checklist is not legal advice.
+- **No durable application storage:** dossier state is session-based, and exports must be saved by the user.
+- **No guarantee of semantic correctness:** verified quotation existence does not imply that a summary is accurate, complete, timely, or legally applicable.
+- **Not production-hardened:** further access controls, data retention policies, security reviews, provenance checks, version handling and independent multi-tender evaluation are required.
 
-Citations verify that quotes occur in transmitted sources, **not** the semantic correctness of interpretations. Pages without OCR are still not analyzed. Do not send private documents without appropriate authorization. The model must be enabled for your xAI account and can incur charges. The application does not store the xAI key or place it in exported JSON.
+See [SYSTEM_CARD](docs/SYSTEM_CARD.md), [EVALUATION_REPORT](docs/EVALUATION_REPORT.md), and [RED_TEAM_LOG](docs/RED_TEAM_LOG.md) for additional context.
 
-### BOAMP live response correction
+## Contributing and project status
 
-The official OpenDataSoft BOAMP endpoint was confirmed from the user's Ubuntu/WSL terminal: HTTP 200 for notice 26-99630. Its actual JSON nests records under records[].record.fields; the older reader assumed results[]. The app now handles both, and selects only six known public fields to avoid unsupported-field API errors.
+This is a classroom/research prototype. Changes should be reviewed with `python -m unittest discover -s tests -v` and a manual Streamlit smoke test, especially for BOAMP and optional model providers. Do not add real API keys or sensitive tender files to Git.
+
+The prototype and its documentation were developed with assistance from ChatGPT; contributors remain responsible for reviewing, testing and explaining the code, model behavior, and reported findings.
