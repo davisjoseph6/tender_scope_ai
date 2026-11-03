@@ -13,3 +13,5 @@
 **Evaluation:** Historical 20 cases from one 2024 RC: 10/20 strict phrase+source proxy, 0/1 deadline exact match; Wilson intervals are descriptive only. Structured Groq historical export is not a prompt-only baseline. Reproducible prompt-only comparison script provided, but not yet executed.
 
 **Limitations:** No authenticated DCE access, no OCR, no guaranteed amendment chronology, no semantic correctness certification, no BOAMP multi-notice held-out gold set, no legal advice. BOAMP information can change; verify official source before action.
+
+**Classroom fallback:** A public BOAMP record snapshot (26-99630) is bundled for demonstrations when the OpenDataSoft service or classroom network fails. Its provenance and offline status are displayed; its response deadline is not asserted. It is not a substitute for a live API request.
