@@ -5,7 +5,8 @@ from uuid import uuid4
 import streamlit as st
 
 DEFAULTS = {"pages": [], "documents": [], "requirements": [], "review_complete": False,
-            "dossier_name": "Dossier sans nom", "ai_extraction": None, "ai_answer": None, "ai_checkpoint": None}
+            "dossier_name": "Dossier sans nom", "ai_extraction": None, "ai_answer": None, "ai_checkpoint": None,
+            "ollama_extraction": None, "ollama_checkpoint": None}
 FIELDS = tuple(DEFAULTS)
 
 
@@ -51,6 +52,6 @@ def archive_loaded_dossier(pages, documents, name):
         "active_dossier": uuid4().hex, "pages": pages, "documents": documents,
         "requirements": [], "review_complete": False, "dossier_name": name,
         "ai_extraction": None, "ai_answer": None,
-        "ai_checkpoint": None,
+        "ai_checkpoint": None, "ollama_extraction": None, "ollama_checkpoint": None,
     })
     save_active()
