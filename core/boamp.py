@@ -22,7 +22,7 @@ class BOAMPError(ValueError):
 def validated_id(idweb: str) -> str:
     candidate = idweb.strip()
     if not ID_RE.fullmatch(candidate):
-        raise BOAMPError("Identifiant BOAMP attendu : 26-106035 (année-numéro).")
+        raise BOAMPError("Identifiant BOAMP attendu au format année-numéro (ex. 26-99630).")
     return candidate
 
 
@@ -43,7 +43,8 @@ def notice_from_record(record: dict) -> dict:
 def get_notice(idweb: str, *, opener=urlopen) -> dict:
     """Queries only BOAMP OpenDataSoft, never an arbitrary URL from the notice."""
     identifier = validated_id(idweb)
-    params = urlencode({"where": f'idweb="{identifier}"', "limit": 1})
+    # Request only the known public fields: full BOAMP records contain large XML/eForms structures.
+    params = urlencode({"select": ",".join(ALLOWED_FIELDS), "where": f'idweb="{identifier}"', "limit": 1})
     request = Request(BASE + "?" + params, headers={"Accept": "application/json",
                         "User-Agent": "TenderScopeAI-classroom-prototype/0.5"})
     try:
@@ -55,9 +56,15 @@ def get_notice(idweb: str, *, opener=urlopen) -> dict:
         for row in rows:
             if isinstance(row, dict) and row.get("idweb") == identifier:
                 return notice_from_record(row)
-    except (HTTPError, URLError, OSError, ValueError, KeyError, UnicodeError) as error:
-        raise BOAMPError("Service BOAMP indisponible ou réponse invalide. Réessayez ou utilisez le dossier fictif hors ligne.") from None
-    raise BOAMPError("Aucun avis BOAMP correspondant à cet identifiant.")
+    except HTTPError as error:
+        raise BOAMPError(f"Réponse HTTP {error.code} de l’API BOAMP. Vérifier le service ou la requête ; aucun avis importé.") from None
+    except URLError as error:
+        reason = getattr(error, "reason", None)
+        hint = " (DNS, connexion réseau, proxy ou TLS)" if reason else ""
+        raise BOAMPError("Connexion à l’API BOAMP impossible" + hint + ". Vérifiez l’accès Internet depuis WSL.") from None
+    except (OSError, ValueError, KeyError, UnicodeError):
+        raise BOAMPError("Réponse BOAMP reçue mais JSON incomplet ou format inattendu. Aucun avis importé.") from None
+    raise BOAMPError("Aucun avis BOAMP trouvé pour cet identifiant dans le jeu de données. Vérifiez l’ID sur boamp.fr.")
 
 
 def notice_evidence(row: dict) -> list[dict]:
