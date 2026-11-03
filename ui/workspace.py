@@ -6,7 +6,8 @@ import streamlit as st
 
 DEFAULTS = {"pages": [], "documents": [], "requirements": [], "review_complete": False,
             "dossier_name": "Dossier sans nom", "ai_extraction": None, "ai_answer": None, "ai_checkpoint": None,
-            "ollama_extraction": None, "ollama_checkpoint": None}
+            "ollama_extraction": None, "ollama_checkpoint": None,
+            "grok_extraction": None, "grok_checkpoint": None, "grok_answer": None}
 FIELDS = tuple(DEFAULTS)
 
 
@@ -53,5 +54,6 @@ def archive_loaded_dossier(pages, documents, name):
         "requirements": [], "review_complete": False, "dossier_name": name,
         "ai_extraction": None, "ai_answer": None,
         "ai_checkpoint": None, "ollama_extraction": None, "ollama_checkpoint": None,
+        "grok_extraction": None, "grok_checkpoint": None, "grok_answer": None,
     })
     save_active()

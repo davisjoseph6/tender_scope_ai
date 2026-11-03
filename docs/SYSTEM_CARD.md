@@ -15,3 +15,6 @@
 **Limitations:** No authenticated DCE access, no OCR, no guaranteed amendment chronology, no semantic correctness certification, no BOAMP multi-notice held-out gold set, no legal advice. BOAMP information can change; verify official source before action.
 
 **Classroom fallback:** A public BOAMP record snapshot (26-99630) is bundled for demonstrations when the OpenDataSoft service or classroom network fails. Its provenance and offline status are displayed; its response deadline is not asserted. It is not a substitute for a live API request.
+
+
+**Grok (xAI) integration:** The third model provider uses XAI_API_KEY and XAI_MODEL, the xAI Responses API and per-request explicit permission. It is not Groq, is not local, may incur charges, and uses the same source-bound citation filter. No web-search or procurement-submission tools are granted. It remains a prototype and needs a real API smoke test on the user's machine.

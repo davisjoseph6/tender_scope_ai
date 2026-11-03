@@ -44,15 +44,20 @@ def get_notice(idweb: str, *, opener=urlopen) -> dict:
     """Queries only BOAMP OpenDataSoft, never an arbitrary URL from the notice."""
     identifier = validated_id(idweb)
     # Request only the known public fields: full BOAMP records contain large XML/eForms structures.
-    params = urlencode({"select": ",".join(ALLOWED_FIELDS), "where": f'idweb="{identifier}"', "limit": 1})
+    # These six columns are confirmed on the public live API; do not select unverified columns.
+    params = urlencode({"select": "idweb,objet,nomacheteur,datelimitereponse,dateparution,etat", "where": f'idweb="{identifier}"', "limit": 1})
     request = Request(BASE + "?" + params, headers={"Accept": "application/json",
                         "User-Agent": "TenderScopeAI-classroom-prototype/0.5"})
     try:
         with opener(request, timeout=15) as response:
             data = json.loads(response.read(1_000_000).decode("utf-8"))
-        rows = data["results"]
+        # The BOAMP dataset currently returns records[].record.fields (not results).
+        if "records" in data:
+            rows = [entry.get("record", {}).get("fields", {}) for entry in data["records"]]
+        else:
+            rows = data["results"]  # compatibility with OpenDataSoft flat results responses
         if not isinstance(rows, list):
-            raise ValueError("results must be list")
+            raise ValueError("records must be list")
         for row in rows:
             if isinstance(row, dict) and row.get("idweb") == identifier:
                 return notice_from_record(row)

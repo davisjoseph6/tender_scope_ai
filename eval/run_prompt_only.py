@@ -12,13 +12,14 @@ from pathlib import Path
 from core.pdf_reader import extract_pages
 from core.llm import Extraction, CAT_LABELS, SYSTEM, request_structured, validate_citations, LLMError, settings
 from core.local_llm import request_local_json
+from core.grok import request_grok_json, grok_settings
 
 ROOT = Path(__file__).resolve().parent
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--backend", choices=("groq", "ollama"), default="groq")
+    parser.add_argument("--backend", choices=("groq", "ollama", "grok"), default="groq")
     parser.add_argument("--pdf", type=Path, default=ROOT.parent / "data/samples/RC_Coeur_Herault_2024.pdf")
     parser.add_argument("--output", type=Path)
     args = parser.parse_args()
@@ -38,6 +39,9 @@ def main():
     if args.backend == "groq":
         result = request_structured(Extraction, task, sources, max_tokens=12000)
         model = settings()["model"]
+    elif args.backend == "grok":
+        result = request_grok_json(Extraction, SYSTEM, task, sources)
+        model = grok_settings()["model"]
     else:
         result = request_local_json(Extraction, SYSTEM, task, sources)
         import os
@@ -56,7 +60,7 @@ def main():
                "requirements": findings, "rejected_requirements": rejected,
                "source_pdf": args.pdf.name, "all_pages_supplied": len(sources),
                "note": "One full-document model call; no RAG, no chunking, no fine-tuning. Reproducible only at recorded model and prompt version."}
-    output = args.output or ROOT / ("prompt_only_groq.json" if args.backend == "groq" else "prompt_only_ollama.json")
+    output = args.output or ROOT / f"prompt_only_{args.backend}.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Saved {len(findings)} sourced requirements to {output}; {rejected} rejected.")

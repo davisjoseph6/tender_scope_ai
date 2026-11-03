@@ -229,3 +229,24 @@ curl --fail-with-body -sS -G \
 ```
 
 Si le service répond `{"results": [...]}`, les données sont issues de l'API ; si les résultats sont vides, vérifier l'ID/le jeu de données. Si `curl` échoue, relever le code HTTP ou l'erreur DNS et utiliser le plan B pour la démonstration.
+
+
+## xAI Grok provider — separate from Groq
+
+Grok is xAI's model service; it does **not** use the Groq key. Configure in the ignored .env file (do not commit or paste tokens):
+
+    XAI_API_KEY=<paste-your-key-locally>
+    XAI_MODEL=grok-4.7
+
+The app uses the xAI Responses API at https://api.x.ai/v1/responses with strict JSON Schema, Pydantic validation and page-bound exact-citation checking. xAI is a paid external provider. No text is sent until you explicitly authorize and press a Grok action button. This is separate from **Groq · IA** and **Ollama · local**.
+
+- Load a public BOAMP record or a fictitious dossier.
+- In **Analyse intelligente**, select **Grok · xAI**, authorize transmission, then click **Extraire les exigences avec Grok (xAI)**.
+- In **Assistant IA**, select **Grok (xAI) + RAG BM25** for BM25-grounded questions.
+- For a *real* Grok prompt-only evaluation: python -m eval.run_prompt_only --backend grok, then python -m eval.field_metrics --compare eval/prompt_only_grok.json. This is a new model and not a controlled within-model Groq comparison.
+
+Citations verify that quotes occur in transmitted sources, **not** the semantic correctness of interpretations. Pages without OCR are still not analyzed. Do not send private documents without appropriate authorization. The model must be enabled for your xAI account and can incur charges. The application does not store the xAI key or place it in exported JSON.
+
+### BOAMP live response correction
+
+The official OpenDataSoft BOAMP endpoint was confirmed from the user's Ubuntu/WSL terminal: HTTP 200 for notice 26-99630. Its actual JSON nests records under records[].record.fields; the older reader assumed results[]. The app now handles both, and selects only six known public fields to avoid unsupported-field API errors.

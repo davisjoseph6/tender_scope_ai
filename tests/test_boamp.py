@@ -62,3 +62,17 @@ class BOAMPTests(unittest.TestCase):
         record = json.loads(file.read_text(encoding="utf-8"))
         self.assertEqual(record["idweb"], "26-99630")
         self.assertIn("not an API response", record["_snapshot_note"])
+
+
+    def test_real_boamp_records_record_fields_shape(self):
+        payload = {"total_count": 1, "records": [{"record": {"fields": {
+            "idweb": "26-99630",
+            "objet": "Accord-cadre de services pour la dératisation, désinsectisation et désinfection",
+            "nomacheteur": "Ville de Châlons en Champagne",
+            "datelimitereponse": "2026-11-06T11:00:00+00:00",
+            "dateparution": "2026-10-15", "etat": "INITIAL"
+        }}}]}
+        row = get_notice("26-99630", opener=lambda *a, **kw: FakeResponse(payload))
+        self.assertEqual(row["idweb"], "26-99630")
+        self.assertEqual(row["datelimitereponse"], "2026-11-06T11:00:00+00:00")
+        self.assertFalse(row["requires_verification"])

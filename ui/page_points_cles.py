@@ -6,6 +6,8 @@ from core.extraction import RULES, extract_key_info
 from core.llm import LLMError, RateLimitError, extract_requirements
 from core.local_llm import LocalModelError
 from core.ollama_extraction import extract_requirements_ollama
+from core.grok import GrokError, extract_requirements_grok, grok_settings
+from ui.xai_controls import allow_xai
 from ui.ai_controls import allow_request, remember_rate_limit
 
 
@@ -112,18 +114,73 @@ def render_ollama(pages):
 
 
 
+def render_grok(pages):
+    st.badge("Grok · xAI extraction structurée", color="blue")
+    st.caption("Service externe xAI, distinct de Groq. Le dossier est transmis seulement après votre autorisation.")
+    enabled = allow_xai("consent_grok_extraction")
+    checkpoint = st.session_state.get("grok_checkpoint")
+    if checkpoint:
+        st.caption(f"Reprise des fragments : {checkpoint['next_chunk']}/{checkpoint['total_chunks']}.")
+    if st.button("Extraire les exigences avec Grok (xAI)", type="primary", disabled=not enabled):
+        try:
+            progress = st.progress(0, text="Extraction Grok xAI")
+            def save_progress(state):
+                st.session_state["grok_checkpoint"] = state
+                progress.progress(state["next_chunk"] / state["total_chunks"],
+                    text=f"{state['next_chunk']}/{state['total_chunks']} fragments xAI")
+            with st.spinner("Grok : extraction structurée et validation des sources..."):
+                result = extract_requirements_grok(pages, checkpoint=checkpoint, on_progress=save_progress)
+            st.session_state["grok_extraction"] = result
+            st.session_state["grok_checkpoint"] = None
+            st.success("Extraction Grok terminée ; citations retrouvées dans les fragments.")
+        except GrokError as error:
+            st.error(str(error))
+        except Exception:
+            st.error("Erreur d'extraction xAI. Consultez les journaux côté serveur, sans exposer la clé.")
+    result = st.session_state.get("grok_extraction")
+    if not result:
+        partial = st.session_state.get("grok_checkpoint")
+        if partial:
+            st.warning(f"Extraction xAI incomplète : {partial['next_chunk']}/{partial['total_chunks']}.")
+            st.download_button("Exporter l'extraction Grok partielle",
+                json.dumps({"complete": False, **partial}, ensure_ascii=False, indent=2),
+                "extraction_grok_partielle.json", "application/json")
+        else:
+            st.info("Aucune extraction Grok complète pour ce dossier.")
+        return
+    st.caption(f"{result['model']} · {result['chunks_processed']} fragments")
+    if result["rejected_requirements"]:
+        st.warning(f"{result['rejected_requirements']} proposition(s) rejetée(s) : citations absentes.")
+    st.warning("REQUIRES VERIFICATION / À VÉRIFIER : citation existante ≠ interprétation correcte.")
+    for item in result["requirements"]:
+        with st.container(border=True):
+            st.markdown(f"**{item['category']}** · Obligatoire : {item['mandatory']}")
+            st.text(item["summary"])
+            for citation in item["citations"]:
+                st.caption(f"{citation['document']} · page {citation['page']}")
+                st.text(citation["quote"])
+    if not result["requirements"]:
+        st.info("Aucune exigence sourcée ; cela ne prouve pas l'absence d'exigences.")
+    st.download_button("Exporter l'extraction Grok",
+        json.dumps(result, ensure_ascii=False, indent=2), "extraction_grok.json", "application/json")
+
+
+
 def render():
     st.title("Analyse intelligente")
     pages = st.session_state.get("pages", [])
     if not pages:
         st.info("Importez d’abord vos PDF dans Mes appels d’offres.")
         return
-    mode = st.radio("Moteur d’extraction", ["Règles locales", "Groq · IA", "Ollama · local"], horizontal=True)
+    mode = st.radio("Moteur d’extraction", ["Règles locales", "Groq · IA", "Ollama · local", "Grok · xAI"], horizontal=True)
     if mode == "Groq · IA":
         render_llm(pages)
         return
     if mode == "Ollama · local":
         render_ollama(pages)
+        return
+    if mode == "Grok · xAI":
+        render_grok(pages)
         return
     st.badge("Extraction par règles · Aucun appel LLM", color="blue")
     st.warning("Repérage indicatif par mots-clés : vérifiez chaque passage dans le document officiel. Les négations et contradictions ne sont pas interprétées.")
