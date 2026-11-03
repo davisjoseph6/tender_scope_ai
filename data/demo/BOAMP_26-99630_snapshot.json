@@ -3,11 +3,10 @@
   "objet": "Accord-cadre de services pour la dératisation, désinsectisation et désinfection",
   "nomacheteur": "Ville de Châlons en Champagne",
   "dateparution": "2026-10-15",
-  "datelimitereponse": null,
+  "datelimitereponse": "2026-11-06T11:00:00+00:00",
   "etat": "INITIAL",
-  "type_marche": "SERVICES",
-  "_snapshot_note": "Fields transcribed from publicly indexed DILA BOAMP record; offline teaching example, not an API response retrieved now; deadline deliberately not provided because timezone/format must be verified against official notice.",
+  "_snapshot_note": "Public BOAMP OpenDataSoft fields captured from a real HTTP 200 response on 2026-11-03; offline teaching copy, not an API response retrieved now; deadlines must still be checked against the latest official notice.",
   "_source_dataset": "https://boamp-datadila.opendatasoft.com/explore/dataset/boamp/",
   "_source_notice": "https://www.boamp.fr/pages/avis/?q=idweb:26-99630",
-  "_source_observed": "indexed BOAMP dataset entry; publication 2026-10-15"
+  "_source_observed": "Live BOAMP v2 API response shared by the user on 2026-11-03; HTTP 200 and total_count=1"
 }
