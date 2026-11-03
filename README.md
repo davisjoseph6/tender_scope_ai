@@ -182,7 +182,7 @@ Lire `docs/SYSTEM_CARD.md`, `docs/DEMO_SCRIPT.md`, `docs/EVALUATION_REPORT.md` e
 
 ## Périmètre après retour du superviseur (2 novembre 2026)
 
-**Source des avis en production : BOAMP / DILA uniquement**, via l'API publique OpenDataSoft. L'écran **Avis BOAMP** récupère **un identifiant exact** (ex. `26-106035`), affiche les champs publics et leur provenance et renvoie vers le lien officiel. Il ne se connecte à **aucun profil acheteur** et ne tente pas de récupérer le RC/CCTP/CCAP derrière un login. Ces documents peuvent être ajoutés manuellement *uniquement s'ils sont librement accessibles et réutilisables*, et ne sont pas revendiqués comme obtenus par l'API BOAMP. Le texte brut BOAMP et ses champs ne suffisent pas à démontrer l'éligibilité d'une entreprise.
+**Source des avis en production : BOAMP / DILA uniquement**, via l'API publique OpenDataSoft. L'écran **Avis BOAMP** récupère **un identifiant exact** (ex. `26-99630`), affiche les champs publics et leur provenance et renvoie vers le lien officiel. Il ne se connecte à **aucun profil acheteur** et ne tente pas de récupérer le RC/CCTP/CCAP derrière un login. Ces documents peuvent être ajoutés manuellement *uniquement s'ils sont librement accessibles et réutilisables*, et ne sont pas revendiqués comme obtenus par l'API BOAMP. Le texte brut BOAMP et ses champs ne suffisent pas à démontrer l'éligibilité d'une entreprise.
 
 ### Comparaison avec le gold set
 
@@ -209,3 +209,23 @@ Ces commandes exigent le PDF historique local (`eval/README.md`). La commande Gr
 - Les vingt vérifications sont des chaînes normalisées strictes ; c'est un **proxy**, pas une validation sémantique, un rappel exhaustif, ni une mesure de généralisation. Un seul dossier de consultation = observations corrélées.
 
 Une **contradiction de dates** figure dans le dossier fictif de démonstration : l'interface affiche en évidence **REQUIRES VERIFICATION / À VÉRIFIER** et toutes les citations. Une annonce BOAMP marquée `RECTIFICATIF` ou liée à une autre affiche également une alerte.
+
+
+## Correctifs de démonstration du 3 novembre 2026
+
+- **BOAMP** : le champ de recherche propose désormais l'avis BOAMP `26-99630` (identifiant présent dans la liste publique DILA), au lieu d'un identifiant d'essai non confirmé. La requête API demande seulement les champs utiles via `select=`, pour ne pas télécharger les structures XML volumineuses. Les erreurs HTTP, DNS et JSON sont distinguées. **Le test en direct est nécessaire sur le poste WSL**, car le CI teste des réponses simulées.
+- **Plan B BOAMP** : bouton **Charger un exemple réel BOAMP (copie hors ligne)**. Ce résultat est explicitement marqué « NOT LIVE », avec une échéance à vérifier ; il ne constitue pas une preuve de fonctionnement de l'API.
+- **Ollama** : dans **Analyse intelligente**, choisissez **Ollama · local**, après avoir chargé le dossier fictif dans **Prototype local**, puis cliquez sur **Extraire localement avec Ollama**. Extraction structurée fragment par fragment, citation exacte contrôlée, reprise en session ; aucun appel Groq. `qwen2.5:7b` doit être installé et Ollama démarré. Le système peut rejeter des propositions non sourcées ; la qualité sémantique reste à évaluer.
+- **Groq** : une clé présente dans `.env` ne prouve pas son autorisation. Une erreur HTTP 401 signale l'authentification ; HTTP 403 signale une permission insuffisante. Si Groq est inaccessible, utilisez Ollama ou les règles locales.
+
+Pour tester directement l'API sur Ubuntu/WSL (aucune clé API requise) :
+
+```bash
+curl --fail-with-body -sS -G \
+  'https://boamp-datadila.opendatasoft.com/api/explore/v2.0/catalog/datasets/boamp/records' \
+  --data-urlencode 'select=idweb,objet,nomacheteur,datelimitereponse,dateparution,etat' \
+  --data-urlencode 'where=idweb="26-99630"' \
+  --data-urlencode 'limit=1'
+```
+
+Si le service répond `{"results": [...]}`, les données sont issues de l'API ; si les résultats sont vides, vérifier l'ID/le jeu de données. Si `curl` échoue, relever le code HTTP ou l'erreur DNS et utiliser le plan B pour la démonstration.
