@@ -1,0 +1,295 @@
+{
+  "tools": [
+    {
+      "name": "lookup_boamp_notice",
+      "description": "Retrieve publicly available BOAMP notice metadata by official notice ID without accessing protected buyer portals.",
+      "access": "read",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "idweb": {
+            "description": "Official BOAMP notice identifier, e.g. 26-99630.",
+            "pattern": "^\\d{2}-\\d{4,7}$",
+            "title": "Idweb",
+            "type": "string"
+          }
+        },
+        "required": [
+          "idweb"
+        ],
+        "title": "BOAMPInput",
+        "type": "object"
+      },
+      "returns": {
+        "additionalProperties": false,
+        "properties": {
+          "idweb": {
+            "title": "Idweb",
+            "type": "string"
+          },
+          "objet": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Objet"
+          },
+          "nomacheteur": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Nomacheteur"
+          },
+          "datelimitereponse": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Datelimitereponse"
+          },
+          "dateparution": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dateparution"
+          },
+          "etat": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Etat"
+          },
+          "source_url": {
+            "title": "Source Url",
+            "type": "string"
+          },
+          "requires_verification": {
+            "title": "Requires Verification",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "idweb",
+          "objet",
+          "nomacheteur",
+          "datelimitereponse",
+          "dateparution",
+          "etat",
+          "source_url",
+          "requires_verification"
+        ],
+        "title": "BOAMPOutput",
+        "type": "object"
+      }
+    },
+    {
+      "name": "rag_search_documents",
+      "description": "Retrieve source-indexed passages from the active procurement dossier using BM25 or hybrid BM25 and BGE-M3 semantic retrieval.",
+      "access": "read",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "description": "Question to answer using document evidence.",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Question",
+            "type": "string"
+          },
+          "method": {
+            "default": "bm25",
+            "description": "BM25 only, or BM25 plus BGE-M3 and RRF.",
+            "enum": [
+              "bm25",
+              "hybrid"
+            ],
+            "title": "Method",
+            "type": "string"
+          },
+          "top_k": {
+            "default": 6,
+            "description": "Maximum number of passages to retrieve.",
+            "maximum": 10,
+            "minimum": 1,
+            "title": "Top K",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "question"
+        ],
+        "title": "RAGInput",
+        "type": "object"
+      },
+      "returns": {
+        "$defs": {
+          "Evidence": {
+            "additionalProperties": false,
+            "properties": {
+              "source_id": {
+                "title": "Source Id",
+                "type": "string"
+              },
+              "document": {
+                "title": "Document",
+                "type": "string"
+              },
+              "page": {
+                "title": "Page",
+                "type": "integer"
+              },
+              "text": {
+                "title": "Text",
+                "type": "string"
+              }
+            },
+            "required": [
+              "source_id",
+              "document",
+              "page",
+              "text"
+            ],
+            "title": "Evidence",
+            "type": "object"
+          }
+        },
+        "additionalProperties": false,
+        "properties": {
+          "question": {
+            "title": "Question",
+            "type": "string"
+          },
+          "method": {
+            "enum": [
+              "bm25",
+              "hybrid"
+            ],
+            "title": "Method",
+            "type": "string"
+          },
+          "passages": {
+            "items": {
+              "$ref": "#/$defs/Evidence"
+            },
+            "title": "Passages",
+            "type": "array"
+          },
+          "human_review_required": {
+            "title": "Human Review Required",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "question",
+          "method",
+          "passages",
+          "human_review_required"
+        ],
+        "title": "RAGOutput",
+        "type": "object"
+      }
+    },
+    {
+      "name": "add_requirement_to_checklist",
+      "description": "Add a source-supported requirement to the current in-session bid/no-bid checklist, initially marked as requiring human verification.",
+      "access": "write",
+      "parameters": {
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "description": "Requirement to add to the checklist.",
+            "maxLength": 500,
+            "minLength": 3,
+            "title": "Label",
+            "type": "string"
+          },
+          "source_document": {
+            "description": "Filename of the supporting document.",
+            "minLength": 1,
+            "title": "Source Document",
+            "type": "string"
+          },
+          "source_page": {
+            "description": "Page containing the supporting quotation.",
+            "minimum": 1,
+            "title": "Source Page",
+            "type": "integer"
+          },
+          "quote": {
+            "description": "Exact supporting quotation from the source.",
+            "minLength": 3,
+            "title": "Quote",
+            "type": "string"
+          },
+          "mandatory": {
+            "description": "Whether the requirement is mandatory.",
+            "title": "Mandatory",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "label",
+          "source_document",
+          "source_page",
+          "quote",
+          "mandatory"
+        ],
+        "title": "ChecklistInput",
+        "type": "object"
+      },
+      "returns": {
+        "additionalProperties": false,
+        "properties": {
+          "created": {
+            "title": "Created",
+            "type": "boolean"
+          },
+          "item_index": {
+            "title": "Item Index",
+            "type": "integer"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "status": {
+            "const": "À vérifier",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "created",
+          "item_index",
+          "label",
+          "status"
+        ],
+        "title": "ChecklistOutput",
+        "type": "object"
+      }
+    }
+  ]
+}
