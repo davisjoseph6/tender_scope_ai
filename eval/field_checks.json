@@ -1,0 +1,78 @@
+{
+  "description": "Conservative manual-review candidate predicates for the existing 20 historical RC annotations. All phrases are normalized (accents/punctuation); all required phrases must appear in the model summary. Strict proxy, not human-validated accuracy.",
+  "checks": {
+    "rc01": [
+      "01/08/2024",
+      "11 h"
+    ],
+    "rc02": [
+      "90 jours"
+    ],
+    "rc03": [
+      "une annee",
+      "deux fois",
+      "trois ans"
+    ],
+    "rc04": [
+      "resiliation",
+      "deux mois"
+    ],
+    "rc05": [
+      "sous-traitance refusee"
+    ],
+    "rc06": [
+      "uniquement en langue francaise"
+    ],
+    "rc07": [
+      "lettre de candidature ou imprime dc1"
+    ],
+    "rc08": [
+      "si le candidat est en redressement judiciaire"
+    ],
+    "rc09": [
+      "le cas echeant"
+    ],
+    "rc10": [
+      "trois derniers exercices"
+    ],
+    "rc11": [
+      "references",
+      "trois dernieres annees"
+    ],
+    "rc12": [
+      "memoire technique",
+      "methodologie",
+      "equipe"
+    ],
+    "rc13": [
+      "45%"
+    ],
+    "rc14": [
+      "40%"
+    ],
+    "rc15": [
+      "15%"
+    ],
+    "rc16": [
+      "20%",
+      "10%",
+      "trois sous-criteres",
+      "quatre sous-criteres"
+    ],
+    "rc17": [
+      "ne saurait entrainer de surcout"
+    ],
+    "rc18": [
+      "variantes non autorisees"
+    ],
+    "rc19": [
+      "peut negocier",
+      "3 premieres places"
+    ],
+    "rc20": [
+      "45%",
+      "50/50",
+      "incoherence"
+    ]
+  }
+}

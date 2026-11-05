@@ -1,6 +1,6 @@
 import streamlit as st
 
-from ui import page_assistant, page_dashboard, page_decision, page_dossier, page_points_cles, page_profile
+from ui import page_assistant, page_dashboard, page_decision, page_dossier, page_points_cles, page_profile, page_local_demo, page_boamp
 from ui.sidebar import render_sidebar
 from ui.styles import inject_css
 from ui.workspace import save_active
@@ -18,6 +18,8 @@ routes = {
     "Profil entreprise": page_profile,
     "Décision Bid/No-Bid": page_decision,
     "Assistant IA": page_assistant,
+    "Prototype local": page_local_demo,
+    "Avis BOAMP": page_boamp,
 }
 routes.get(page, page_dashboard).render()
 save_active()

@@ -1,0 +1,456 @@
+{
+  "gold_set": "RC Cœur d'Hérault 2024, 20 cas, validation indépendante en attente",
+  "source_pdf_sha256": "a3fafcfbf01b561e9d863b4e1c77f5e162b29e456f9a736cde7a39b7962c2af0",
+  "historical_structured_baseline": {
+    "file": "/home/davis/tender_scope_ai/eval/baseline_rc.json",
+    "sha256": "94a666632174b15a287487208e710e17c41d8ca295a9e5b7e03c3cef8aee3bfb",
+    "method": "strict_string_field_proxy_v1",
+    "prediction_mode": "Groq · extraction structurée",
+    "model": "openai/gpt-oss-20b",
+    "source_coverage": {
+      "correct": 15,
+      "total": 20,
+      "rate": 0.75,
+      "wilson_95": [
+        0.5313,
+        0.8881
+      ]
+    },
+    "field_correct_and_source_supported": {
+      "correct": 10,
+      "total": 20,
+      "rate": 0.5,
+      "wilson_95": [
+        0.2993,
+        0.7007
+      ]
+    },
+    "category_correct_and_source_supported": {
+      "correct": 6,
+      "total": 20,
+      "rate": 0.3,
+      "wilson_95": [
+        0.1455,
+        0.519
+      ]
+    },
+    "deadline_exact_match": {
+      "correct": 0,
+      "total": 1,
+      "rate": 0.0,
+      "wilson_95": [
+        0,
+        0.7935
+      ]
+    },
+    "rows": [
+      {
+        "id": "rc01",
+        "topic": "Dépôt des offres",
+        "source_supported": true,
+        "field_value_and_source": false,
+        "category_and_source": true,
+        "candidate_items": [
+          1
+        ]
+      },
+      {
+        "id": "rc02",
+        "topic": "Validité des offres",
+        "source_supported": true,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": [
+          2
+        ]
+      },
+      {
+        "id": "rc03",
+        "topic": "Durée du marché",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": false,
+        "candidate_items": [
+          6
+        ]
+      },
+      {
+        "id": "rc04",
+        "topic": "Résiliation",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": false,
+        "candidate_items": [
+          7
+        ]
+      },
+      {
+        "id": "rc05",
+        "topic": "Sous-traitance",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": false,
+        "candidate_items": [
+          9
+        ]
+      },
+      {
+        "id": "rc06",
+        "topic": "Langue de réponse",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": false,
+        "candidate_items": [
+          12
+        ]
+      },
+      {
+        "id": "rc07",
+        "topic": "Lettre de candidature",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": true,
+        "candidate_items": [
+          13
+        ]
+      },
+      {
+        "id": "rc08",
+        "topic": "Jugements conditionnels",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": true,
+        "candidate_items": [
+          17
+        ]
+      },
+      {
+        "id": "rc09",
+        "topic": "Qualifications conditionnelles",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": true,
+        "candidate_items": [
+          23
+        ]
+      },
+      {
+        "id": "rc10",
+        "topic": "Déclaration de chiffre d’affaires",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": true,
+        "candidate_items": [
+          22
+        ]
+      },
+      {
+        "id": "rc11",
+        "topic": "Références",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc12",
+        "topic": "Mémoire technique",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": false,
+        "candidate_items": [
+          28
+        ]
+      },
+      {
+        "id": "rc13",
+        "topic": "Pondération du prix",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc14",
+        "topic": "Pondération technique",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc15",
+        "topic": "Pondération intervention",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc16",
+        "topic": "Sous-critères techniques",
+        "source_supported": true,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": [
+          35
+        ]
+      },
+      {
+        "id": "rc17",
+        "topic": "Négation sur le surcoût",
+        "source_supported": true,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": [
+          40
+        ]
+      },
+      {
+        "id": "rc18",
+        "topic": "Variantes",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc19",
+        "topic": "Négociation éventuelle",
+        "source_supported": true,
+        "field_value_and_source": true,
+        "category_and_source": false,
+        "candidate_items": [
+          34
+        ]
+      },
+      {
+        "id": "rc20",
+        "topic": "Incohérence du barème prix",
+        "source_supported": true,
+        "field_value_and_source": false,
+        "category_and_source": true,
+        "candidate_items": [
+          36
+        ]
+      }
+    ],
+    "limitations": [
+      "Automated exact phrase proxy, not validated semantic field accuracy.",
+      "20 field questions and one deadline from ONE historical tender; Wilson intervals are descriptive only, not estimates of cross-tender generalisation.",
+      "Correct quotations may support wrong interpretations; independent human annotation and multiple tenders still required.",
+      "This historical structured Groq export is NOT a prompt-only baseline."
+    ]
+  },
+  "prompt_only_baseline": {
+    "file": "eval/prompt_only_ollama.json",
+    "sha256": "fde65edffb10e885c911ac2a419c18b4897002da1520a367ec34c4e58b98e842",
+    "method": "strict_string_field_proxy_v1",
+    "prediction_mode": "PROMPT_ONLY_FULL_DOCUMENT_OLLAMA",
+    "model": "qwen2.5:7b",
+    "source_coverage": {
+      "correct": 0,
+      "total": 20,
+      "rate": 0.0,
+      "wilson_95": [
+        0,
+        0.1611
+      ]
+    },
+    "field_correct_and_source_supported": {
+      "correct": 0,
+      "total": 20,
+      "rate": 0.0,
+      "wilson_95": [
+        0,
+        0.1611
+      ]
+    },
+    "category_correct_and_source_supported": {
+      "correct": 0,
+      "total": 20,
+      "rate": 0.0,
+      "wilson_95": [
+        0,
+        0.1611
+      ]
+    },
+    "deadline_exact_match": {
+      "correct": 0,
+      "total": 1,
+      "rate": 0.0,
+      "wilson_95": [
+        0,
+        0.7935
+      ]
+    },
+    "rows": [
+      {
+        "id": "rc01",
+        "topic": "Dépôt des offres",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc02",
+        "topic": "Validité des offres",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc03",
+        "topic": "Durée du marché",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc04",
+        "topic": "Résiliation",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc05",
+        "topic": "Sous-traitance",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc06",
+        "topic": "Langue de réponse",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc07",
+        "topic": "Lettre de candidature",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc08",
+        "topic": "Jugements conditionnels",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc09",
+        "topic": "Qualifications conditionnelles",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc10",
+        "topic": "Déclaration de chiffre d’affaires",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc11",
+        "topic": "Références",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc12",
+        "topic": "Mémoire technique",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc13",
+        "topic": "Pondération du prix",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc14",
+        "topic": "Pondération technique",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc15",
+        "topic": "Pondération intervention",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc16",
+        "topic": "Sous-critères techniques",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc17",
+        "topic": "Négation sur le surcoût",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc18",
+        "topic": "Variantes",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc19",
+        "topic": "Négociation éventuelle",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      },
+      {
+        "id": "rc20",
+        "topic": "Incohérence du barème prix",
+        "source_supported": false,
+        "field_value_and_source": false,
+        "category_and_source": false,
+        "candidate_items": []
+      }
+    ],
+    "limitations": [
+      "Automated exact phrase proxy, not validated semantic field accuracy.",
+      "20 field questions and one deadline from ONE historical tender; Wilson intervals are descriptive only, not estimates of cross-tender generalisation.",
+      "Correct quotations may support wrong interpretations; independent human annotation and multiple tenders still required.",
+      "This historical structured Groq export is NOT a prompt-only baseline."
+    ]
+  }
+}

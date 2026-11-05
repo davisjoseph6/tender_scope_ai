@@ -135,8 +135,10 @@ def request_structured(schema, task, chunks, *, client=None, max_tokens=6000):
         status = getattr(error, "status_code", None)
         if status == 429:
             raise rate_limit_error(error) from None
-        if status in (401, 403):
-            raise LLMError("Accès Groq refusé. Vérifiez la clé API et les permissions du modèle dans la console Groq.") from None
+        if status == 401:
+            raise LLMError("Groq HTTP 401 : clé API absente, révoquée ou non valide. Vérifiez GROQ_API_KEY dans la console Groq.") from None
+        if status == 403:
+            raise LLMError("Groq HTTP 403 : accès interdit. Vérifiez les permissions du modèle au niveau de l'organisation et du projet Groq.") from None
         if status == 400:
             body = getattr(error, "body", {})
             details = body.get("error", body) if isinstance(body, dict) else {}

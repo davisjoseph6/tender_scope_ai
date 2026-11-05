@@ -1,0 +1,23 @@
+{
+  "mode": "PROMPT_ONLY_FULL_DOCUMENT_OLLAMA",
+  "model": "qwen2.5:7b",
+  "requirements": [
+    {
+      "category": "Prestations techniques",
+      "summary": "Jour supplémentaire de conseil, refacturation de prestations avec des opérateurs extérieurs (forfait 5 opérateurs), évaluation réseaux et équipements et perspectives",
+      "mandatory": "Non",
+      "citations": [
+        {
+          "document": "RC_Coeur_Herault_2024.pdf",
+          "page": 7,
+          "quote": "Jour supplémentaire Conseils   \nRefacturation de prestations avec des \nopérateurs extérieurs (forfait 5 \nopérateurs) \n  \nEvaluation réseaux et équipements et \nprospectives",
+          "source_id": "p7"
+        }
+      ]
+    }
+  ],
+  "rejected_requirements": 1,
+  "source_pdf": "RC_Coeur_Herault_2024.pdf",
+  "all_pages_supplied": 8,
+  "note": "One full-document model call; no RAG, no chunking, no fine-tuning. Reproducible only at recorded model and prompt version."
+}
